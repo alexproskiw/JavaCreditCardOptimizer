@@ -8,10 +8,10 @@ According to the Bank of Canada, 9 in 10 Canadians own a credit card. Most of
 these cards provide some type of reward, such as getting cashback or aeroplan points 
 for every dollar you spend.
 
-> The purpose of this application is to:
-> - Allow the user to create a list of credit cards they are interested in;
-> - View and modify the credit cards in this list; and 
-> - Get a recommendation for the best credit card optimized to their personal monthly spending. 
+The purpose of this application is to:
+- Allow the user to create a list of credit cards they are interested in;
+- View and modify the credit cards in this list; and 
+- Get a recommendation for the best credit card optimized to their personal monthly spending. 
 
 The optimized recommendation will account for the difference in value between reward types 
 by converting each reward type to an equivalent $ value.
