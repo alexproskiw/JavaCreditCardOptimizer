@@ -16,14 +16,16 @@ The purpose of this application is to:
 The optimized recommendation will account for the difference in value between reward types 
 by converting each reward type to an equivalent $ value.
 
-## <ins>User Information</ins>
-This application will be used by people who want to minimize credit card fees while maximizing their rewards.
+## <ins>User Information/Stories</ins>
+This application will be used by people who want to keep track of multiple different credit cards
+that they are considering getting. In addition, the application will be used be people who want 
+to optimize their credit card choice by minimizing fees while maximizing rewards.
 
-Key user stories that will be implemented throughout the phases of the project include:
-- As a user, I want to be able to add/remove credit cards to/from a list of credit cards I'm considering using. At minimum, a credit card will have a name, annual fee, and reward rate.
-- As a user, I want to be able to select a credit card from the list and view/modify its details.
-- As a user, I want to be able to save my list of credit cards so that I can reload it when the application restarts.
-- As a user, I want to receive a recommendation of the credit card that will give me the highest reward value based on my monthly spending.
+Key user stories that will be implemented in this application include:
+- As a user, I want to be able to add/remove credit cards to/from a list of credit cards I'm considering getting. At minimum, a credit card will have a name, annual fee, and reward rate.
+- As a user, I want to be able to select a credit card from the list of credit cards and view/modify its details.
+- As a user, I want to be able to enter my monthly credit card spending.
+- As a user, I want to be able to receive a recommendation of the credit card that will give me the highest reward value based on my monthly spending.
 
 ## <ins>Project Rationale</ins>
 This project is of interest to me because for years I simply 
