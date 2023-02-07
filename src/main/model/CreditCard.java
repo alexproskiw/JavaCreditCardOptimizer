@@ -2,7 +2,7 @@ package model;
 
 public class CreditCard {
 
-    private String name;
+    private String cardName;
     private String rewardName;
     private double annualFee;
     private double generalRewards;
@@ -15,10 +15,10 @@ public class CreditCard {
     private double entertainmentRewards;
     private double recurringRewards;
 
-    public CreditCard(String name, String rewardName, double annualFee,  double general, double travel,
+    public CreditCard(String cardName, String rewardName, double annualFee,  double general, double travel,
                       double grocery, double restaurant, double gas, double drugStore, double transit,
                       double entertainment, double recurring) {
-        this.name = name;
+        this.cardName = cardName;
         this.rewardName = rewardName;
         this.annualFee = annualFee;
         this.generalRewards = general;
@@ -32,8 +32,8 @@ public class CreditCard {
         this.recurringRewards = recurring;
     }
 
-    public String getName() {
-        return name;
+    public String getCardName() {
+        return cardName;
     }
 
     public String getRewardName() {
@@ -80,8 +80,8 @@ public class CreditCard {
         return recurringRewards;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
     }
 
     public void setRewardName(String rewardName) {

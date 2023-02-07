@@ -6,25 +6,46 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MonthlySpendingTest {
 
-    MonthlySpending spend;
+    MonthlySpending monthlySpending;
 
     @BeforeEach
     void runBefore() {
-        spend = new MonthlySpending(1000, 100, 500, 200, 75,
-                50, 46, 60, 150);
+        monthlySpending = new MonthlySpending();
     }
 
     @Test
     void testConstructor() {
-        assertEquals(1000, spend.getGeneralSpending());
-        assertEquals(100, spend.getTravelSpending());
-        assertEquals(500, spend.getGrocerySpending());
-        assertEquals(200, spend.getRestaurantSpending());
-        assertEquals(75, spend.getGasSpending());
-        assertEquals(50, spend.getDrugStoreSpending());
-        assertEquals(46, spend.getTransitSpending());
-        assertEquals(60, spend.getEntertainmentSpending());
-        assertEquals(150, spend.getRecurringSpending());
+        assertEquals(0, monthlySpending.getGeneralSpending());
+        assertEquals(0, monthlySpending.getTravelSpending());
+        assertEquals(0, monthlySpending.getGrocerySpending());
+        assertEquals(0, monthlySpending.getRestaurantSpending());
+        assertEquals(0, monthlySpending.getGasSpending());
+        assertEquals(0, monthlySpending.getDrugStoreSpending());
+        assertEquals(0, monthlySpending.getTransitSpending());
+        assertEquals(0, monthlySpending.getEntertainmentSpending());
+        assertEquals(0, monthlySpending.getRecurringSpending());
+    }
+
+    @Test
+    void testSetters() {
+        monthlySpending.setGeneralSpending(1000);
+        monthlySpending.setTravelSpending(100);
+        monthlySpending.setGrocerySpending(500);
+        monthlySpending.setRestaurantSpending(200);
+        monthlySpending.setGasSpending(75);
+        monthlySpending.setDrugStoreSpending(50);
+        monthlySpending.setTransitSpending(46);
+        monthlySpending.setEntertainmentSpending(60);
+        monthlySpending.setRecurringSpending(150);
+        assertEquals(1000, monthlySpending.getGeneralSpending());
+        assertEquals(100, monthlySpending.getTravelSpending());
+        assertEquals(500, monthlySpending.getGrocerySpending());
+        assertEquals(200, monthlySpending.getRestaurantSpending());
+        assertEquals(75, monthlySpending.getGasSpending());
+        assertEquals(50, monthlySpending.getDrugStoreSpending());
+        assertEquals(46, monthlySpending.getTransitSpending());
+        assertEquals(60, monthlySpending.getEntertainmentSpending());
+        assertEquals(150, monthlySpending.getRecurringSpending());
     }
 
 }

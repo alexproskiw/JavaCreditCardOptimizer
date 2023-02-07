@@ -7,68 +7,73 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ListOfRewardTypesTest {
 
-    ListOfRewardTypes lort;
+    ListOfRewardTypes listOfRewardTypes;
 
     @BeforeEach
     void runBefore() {
-        lort = new ListOfRewardTypes();
+        listOfRewardTypes = new ListOfRewardTypes();
     }
 
     @Test
     void testConstructor() {
-        assertEquals(7, lort.getSize());
+        assertEquals(7, listOfRewardTypes.getListOfRewardTypes().size());
+    }
+
+    @Test
+    void testGetRewardTypeNotInList() {
+        assertNull(listOfRewardTypes.getRewardType("Fake Reward"));
+    }
+
+    @Test
+    void testContainsRewardInList() {
+        assertTrue(listOfRewardTypes.containsReward("Aeroplan"));
+    }
+
+    @Test
+    void testContainsRewardNotInList() {
+        assertFalse(listOfRewardTypes.containsReward("Avion Rewards"));
     }
 
     @Test
     void testAddRewardType() {
         RewardType testReward = new RewardType("Test Reward", 2);
-        assertTrue(lort.addRewardType(testReward));
-        assertEquals(8, lort.getSize());
-        assertEquals(testReward, lort.getRewardType("Test Reward"));
+        assertTrue(listOfRewardTypes.addRewardType(testReward));
+        assertEquals(8, listOfRewardTypes.getListOfRewardTypes().size());
+        assertEquals(testReward, listOfRewardTypes.getRewardType("Test Reward"));
     }
 
     @Test
     void testAddRewardTypeAlreadyInList() {
         RewardType aeroplan = new RewardType("Aeroplan", 2.1);
-        assertFalse(lort.addRewardType(aeroplan));
-        assertEquals(7, lort.getSize());
+        assertFalse(listOfRewardTypes.addRewardType(aeroplan));
+        assertEquals(7, listOfRewardTypes.getListOfRewardTypes().size());
     }
 
     @Test
     void testRemoveRewardType() {
-        assertTrue(lort.removeRewardType("Cashback"));
-        assertEquals(6, lort.getSize());
+        assertTrue(listOfRewardTypes.removeRewardType("Cashback"));
+        assertEquals(6, listOfRewardTypes.getListOfRewardTypes().size());
     }
 
     @Test
     void testRemoveMultipleRewardTypes() {
-        assertTrue(lort.removeRewardType("Aventura"));
-        assertTrue(lort.removeRewardType("AMEX Rewards"));
-        assertEquals(5, lort.getSize());
+        assertTrue(listOfRewardTypes.removeRewardType("Aventura"));
+        assertTrue(listOfRewardTypes.removeRewardType("AMEX Rewards"));
+        assertEquals(5, listOfRewardTypes.getListOfRewardTypes().size());
     }
 
     @Test
     void testRemoveRewardTypeMultipleTimes() {
-        assertTrue(lort.removeRewardType("Aeroplan"));
-        assertEquals(6, lort.getSize());
-        assertFalse(lort.removeRewardType("Aeroplan"));
-        assertEquals(6, lort.getSize());
+        assertTrue(listOfRewardTypes.removeRewardType("Aeroplan"));
+        assertEquals(6, listOfRewardTypes.getListOfRewardTypes().size());
+        assertFalse(listOfRewardTypes.removeRewardType("Aeroplan"));
+        assertEquals(6, listOfRewardTypes.getListOfRewardTypes().size());
     }
 
     @Test
     void testRemoveRewardTypeNotInList() {
-        assertFalse(lort.removeRewardType("Avion Rewards"));
-        assertEquals(7, lort.getSize());
-    }
-
-    @Test
-    void testContainsRewardInList() {
-        assertTrue(lort.containsReward("Aeroplan"));
-    }
-
-    @Test
-    void testContainsRewardNotInList() {
-        assertFalse(lort.containsReward("Avion Rewards"));
+        assertFalse(listOfRewardTypes.removeRewardType("Avion Rewards"));
+        assertEquals(7, listOfRewardTypes.getListOfRewardTypes().size());
     }
 
 }

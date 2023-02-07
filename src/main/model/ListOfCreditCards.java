@@ -1,13 +1,12 @@
 package model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ListOfCreditCards {
 
     private ArrayList<CreditCard> listOfCreditCards;
 
-    // Create default credit cards
+    // Default credit cards
     private CreditCard cibcAventuraVIP = new CreditCard("CIBC Aventura Visa Infinite Privilege",
             "Aventura", 499, 1.25, 3, 2, 2, 2,
             1.25, 2, 2, 1.25);
@@ -51,36 +50,30 @@ public class ListOfCreditCards {
         loadDefaultCreditCards();
     }
 
-//    public void listAllCreditCards() {
-//        System.out.println("Your database of credit cards includes:");
-//        for (CreditCard card: listOfCreditCards) {
-//            System.out.println("- " + card.getName());
-//        }
-//    }
-//
-//    public void displayCardInfo(String cardName) {
-//        for (CreditCard card: listOfCreditCards) {
-//            if (card.getName().equals(cardName)) {
-//                System.out.println("The card's name is: " + card.getName());
-//                System.out.println("The card's reward type is: " + card.getRewardName());
-//                System.out.println("The card's annual fee is: $" + card.getAnnualFee());
-//                System.out.println("The card's reward rates are as follows:");
-//                System.out.println("- General rewards: " + card.getGeneralRewards() + " points per $ spent");
-//                System.out.println("- Travel rewards: " + card.getTravelRewards() + " points per $ spent");
-//                System.out.println("- Grocery rewards: " + card.getGroceryRewards() + " points per $ spent");
-//                System.out.println("- Restaurant rewards: " + card.getRestaurantRewards() + " points per $ spent");
-//                System.out.println("- Gas rewards: " + card.getGasRewards() + " points per $ spent");
-//                System.out.println("- Drug store rewards: " + card.getDrugStoreRewards() + " points per $ spent");
-//                System.out.println("- Transit rewards: " + card.getTransitRewards() + " points per $ spent");
-//                System.out.println("- Entertainment rewards: " + card.getEntertainmentRewards()
-//                        + " points per $ spent");
-//                System.out.println("- Recurring rewards: " + card.getRecurringRewards() + " points per $ spent");
-//            }
-//        }
-//    }
+    public ArrayList<CreditCard> getListOfCreditCards() {
+        return listOfCreditCards;
+    }
+
+    public CreditCard getCreditCard(String cardName) {
+        for (CreditCard card : listOfCreditCards) {
+            if (card.getCardName().equals(cardName)) {
+                return card;
+            }
+        }
+        return null;
+    }
+
+    public boolean containsCard(String cardName) {
+        for (CreditCard card : listOfCreditCards) {
+            if (card.getCardName().equals(cardName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean addCreditCard(CreditCard card) {
-        if (containsCard(card.getName())) {
+        if (containsCard(card.getCardName())) {
             return false;
         } else {
             listOfCreditCards.add(card);
@@ -89,41 +82,14 @@ public class ListOfCreditCards {
     }
 
     public boolean removeCreditCard(String cardName) {
-        for (int i = 0; i < listOfCreditCards.size(); i++) {
-            if (listOfCreditCards.get(i).getName().equals(cardName)) {
-                listOfCreditCards.remove(i);
+        for (CreditCard card : listOfCreditCards) {
+            if (card.getCardName().equals(cardName)) {
+                listOfCreditCards.remove(card);
                 return true;
             }
         }
         return false;
     }
-
-    public int getSize() {
-        return listOfCreditCards.size();
-    }
-
-    public CreditCard getCreditCard(String cardName) {
-        for (int i = 0; i < listOfCreditCards.size(); i++) {
-            if (listOfCreditCards.get(i).getName().equals(cardName)) {
-                return listOfCreditCards.get(i);
-            }
-        }
-        return null;
-    }
-
-    public CreditCard getCreditCard(int i) {
-        return listOfCreditCards.get(i);
-    }
-
-    public boolean containsCard(String cardName) {
-        for (int i = 0; i < listOfCreditCards.size(); i++) {
-            if (listOfCreditCards.get(i).getName().equals(cardName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     // Modifies: this
     // Effects: Adds the default credit cards to the listOfCreditCards

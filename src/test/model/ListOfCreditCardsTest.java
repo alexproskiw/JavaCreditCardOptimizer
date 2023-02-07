@@ -6,26 +6,40 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ListOfCreditCardsTest {
 
-    ListOfCreditCards locc;
+    ListOfCreditCards listOfCreditCards;
 
     @BeforeEach
     void runBefore() {
-        locc = new ListOfCreditCards();
+        listOfCreditCards = new ListOfCreditCards();
     }
 
     @Test
     void testConstructor() {
-        assertEquals(12, locc.getSize());
+        assertEquals(12, listOfCreditCards.getListOfCreditCards().size());
     }
 
     @Test
+    void testGetCreditCardNotInList() {
+        assertNull(listOfCreditCards.getCreditCard("Fake Credit Card"));
+    }
+
+    @Test
+    void testContainsCardInList() {
+        assertTrue(listOfCreditCards.containsCard("AMEX Cobalt"));
+    }
+
+    @Test
+    void testContainsCardNotInList() {
+        assertFalse(listOfCreditCards.containsCard("Scotia Momentum Visa Infinite"));
+    }
+    @Test
     void testAddCreditCard() {
-        CreditCard card = new CreditCard("Test Credit Card", "Cashback", 100,
+        CreditCard testCard = new CreditCard("Test Credit Card", "Cashback", 100,
                 1.1, 1.3, 1.5, 0.9, 1, 0.7,
                 2, 0.5, 0.8);
-        assertTrue(locc.addCreditCard(card));
-        assertEquals(13, locc.getSize());
-        assertEquals(card, locc.getCreditCard("Test Credit Card"));
+        assertTrue(listOfCreditCards.addCreditCard(testCard));
+        assertEquals(13, listOfCreditCards.getListOfCreditCards().size());
+        assertEquals(testCard, listOfCreditCards.getCreditCard("Test Credit Card"));
     }
 
     @Test
@@ -33,45 +47,35 @@ public class ListOfCreditCardsTest {
         CreditCard amexCobalt = new CreditCard("AMEX Cobalt",
                 "AMEX Rewards", 155.88, 1, 2, 5, 5, 2,
                 1, 2, 3, 1);
-        assertFalse(locc.addCreditCard(amexCobalt));
-        assertEquals(12, locc.getSize());
+        assertFalse(listOfCreditCards.addCreditCard(amexCobalt));
+        assertEquals(12, listOfCreditCards.getListOfCreditCards().size());
     }
 
     @Test
     void testRemoveCreditCard() {
-        assertTrue(locc.removeCreditCard("CIBC Dividend Visa"));
-        assertEquals(11, locc.getSize());
+        assertTrue(listOfCreditCards.removeCreditCard("CIBC Dividend Visa"));
+        assertEquals(11, listOfCreditCards.getListOfCreditCards().size());
     }
 
     @Test
     void testRemoveMultipleCreditCards() {
-        assertTrue(locc.removeCreditCard("CIBC Dividend Visa"));
-        assertTrue(locc.removeCreditCard("Simplii Cash Back Visa"));
-        assertEquals(10, locc.getSize());
+        assertTrue(listOfCreditCards.removeCreditCard("CIBC Dividend Visa"));
+        assertTrue(listOfCreditCards.removeCreditCard("Simplii Cash Back Visa"));
+        assertEquals(10, listOfCreditCards.getListOfCreditCards().size());
     }
 
     @Test
     void testRemoveCreditCardMultipleTimes() {
-        assertTrue(locc.removeCreditCard("CIBC Dividend Visa"));
-        assertEquals(11, locc.getSize());
-        assertFalse(locc.removeCreditCard("CIBC Dividend Visa"));
-        assertEquals(11, locc.getSize());
+        assertTrue(listOfCreditCards.removeCreditCard("CIBC Dividend Visa"));
+        assertEquals(11, listOfCreditCards.getListOfCreditCards().size());
+        assertFalse(listOfCreditCards.removeCreditCard("CIBC Dividend Visa"));
+        assertEquals(11, listOfCreditCards.getListOfCreditCards().size());
     }
 
     @Test
     void testRemoveCreditCardNotInList() {
-        assertFalse(locc.removeCreditCard("Scotia Momentum Visa Infinite"));
-        assertEquals(12, locc.getSize());
-    }
-
-    @Test
-    void testContainsCardInList() {
-        assertTrue(locc.containsCard("AMEX Cobalt"));
-    }
-
-    @Test
-    void testContainsCardNotInList() {
-        assertFalse(locc.containsCard("Scotia Momentum Visa Infinite"));
+        assertFalse(listOfCreditCards.removeCreditCard("Scotia Momentum Visa Infinite"));
+        assertEquals(12, listOfCreditCards.getListOfCreditCards().size());
     }
 
 }

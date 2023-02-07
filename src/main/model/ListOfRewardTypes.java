@@ -6,7 +6,7 @@ public class ListOfRewardTypes {
 
     private ArrayList<RewardType> listOfRewardTypes;
 
-    // Create default reward types
+    // Default reward types
     private RewardType aeroplan = new RewardType("Aeroplan", 2.1);
     private RewardType aventura = new RewardType("Aventura", 1.5);
     private RewardType amexRewards = new RewardType("AMEX Rewards", 1);
@@ -21,34 +21,8 @@ public class ListOfRewardTypes {
         loadDefaultRewardTypes();
     }
 
-//    public void listAllRewardTypes() {
-//        System.out.println("Your database of reward points and their values in cents per point (cpp) are as follows:");
-//        for (RewardType reward: listOfRewardTypes) {
-//            System.out.println("- " + reward.getRewardName() + ": " +  reward.getRewardValue() + " cpp");
-//        }
-//    }
-
-    public boolean addRewardType(RewardType reward) {
-        if (containsReward(reward.getRewardName())) {
-            return false;
-        } else {
-            listOfRewardTypes.add(reward);
-            return true;
-        }
-    }
-
-    public boolean removeRewardType(String rewardName) {
-        for (int i = 0; i < listOfRewardTypes.size(); i++) {
-            if (listOfRewardTypes.get(i).getRewardName().equals(rewardName)) {
-                listOfRewardTypes.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public int getSize() {
-        return listOfRewardTypes.size();
+    public ArrayList<RewardType> getListOfRewardTypes() {
+        return listOfRewardTypes;
     }
 
     public RewardType getRewardType(String rewardName) {
@@ -61,8 +35,27 @@ public class ListOfRewardTypes {
     }
 
     public boolean containsReward(String rewardName) {
-        for (int i = 0; i < listOfRewardTypes.size(); i++) {
-            if (listOfRewardTypes.get(i).getRewardName().equals(rewardName)) {
+        for (RewardType reward: listOfRewardTypes) {
+            if (reward.getRewardName().equals(rewardName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean addRewardType(RewardType reward) {
+        if (containsReward(reward.getRewardName())) {
+            return false;
+        } else {
+            listOfRewardTypes.add(reward);
+            return true;
+        }
+    }
+
+    public boolean removeRewardType(String rewardName) {
+        for (RewardType reward: listOfRewardTypes) {
+            if (reward.getRewardName().equals(rewardName)) {
+                listOfRewardTypes.remove(reward);
                 return true;
             }
         }

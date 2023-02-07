@@ -10,31 +10,31 @@ public class CreditCardOptimizer {
         this.optimalCard = "N/A";
     }
 
-    public void calculateMaxRewards(ListOfCreditCards locc, ListOfRewardTypes lort, MonthlySpending spend) {
-        for (int i = 0; i < locc.getSize(); i++) {
-            CreditCard card = locc.getCreditCard(i);
+    public void calculateMaxRewards(ListOfCreditCards listOfCreditCards, ListOfRewardTypes listOfRewardTypes,
+                                    MonthlySpending monthlySpending) {
+        for (CreditCard card : listOfCreditCards.getListOfCreditCards()) {
             String rewardName = card.getRewardName();
-            RewardType reward = lort.getRewardType(rewardName);
+            RewardType reward = listOfRewardTypes.getRewardType(rewardName);
             Double rewardValue = reward.getRewardValue();
-            double cardRewards = calculateRewards(card, rewardValue, spend);
+            double cardRewards = calculateRewards(card, rewardValue, monthlySpending);
             if (cardRewards > maxRewards) {
                 maxRewards = cardRewards;
-                optimalCard = card.getName();
+                optimalCard = card.getCardName();
             }
         }
     }
 
-    public double calculateRewards(CreditCard card, Double rewardValue, MonthlySpending spend) {
+    public double calculateRewards(CreditCard card, Double rewardValue, MonthlySpending monthlySpending) {
         double annualFee = card.getAnnualFee();
-        double generalRewards = 12 * spend.getGeneralSpending() * card.getGeneralRewards();
-        double travelRewards = 12 * spend.getTravelSpending() * card.getTravelRewards();
-        double groceryRewards = 12 * spend.getGrocerySpending() * card.getGroceryRewards();
-        double restaurantRewards = 12 * spend.getRestaurantSpending() * card.getRestaurantRewards();
-        double gasRewards = 12 * spend.getGasSpending() * card.getGasRewards();
-        double drugStoreRewards = 12 * spend.getDrugStoreSpending() * card.getDrugStoreRewards();
-        double transitRewards = 12 * spend.getTransitSpending() * card.getTransitRewards();
-        double entertainmentRewards = 12 * spend.getEntertainmentSpending() * card.getEntertainmentRewards();
-        double recurringRewards = 12 * spend.getRecurringSpending() * card.getRecurringRewards();
+        double generalRewards = 12 * monthlySpending.getGeneralSpending() * card.getGeneralRewards();
+        double travelRewards = 12 * monthlySpending.getTravelSpending() * card.getTravelRewards();
+        double groceryRewards = 12 * monthlySpending.getGrocerySpending() * card.getGroceryRewards();
+        double restaurantRewards = 12 * monthlySpending.getRestaurantSpending() * card.getRestaurantRewards();
+        double gasRewards = 12 * monthlySpending.getGasSpending() * card.getGasRewards();
+        double drugStoreRewards = 12 * monthlySpending.getDrugStoreSpending() * card.getDrugStoreRewards();
+        double transitRewards = 12 * monthlySpending.getTransitSpending() * card.getTransitRewards();
+        double entertainmentRewards = 12 * monthlySpending.getEntertainmentSpending() * card.getEntertainmentRewards();
+        double recurringRewards = 12 * monthlySpending.getRecurringSpending() * card.getRecurringRewards();
         double totalRewards = (rewardValue / 100) * (generalRewards + travelRewards + groceryRewards
                 + restaurantRewards + gasRewards + drugStoreRewards + transitRewards + entertainmentRewards
                 + recurringRewards) - annualFee;

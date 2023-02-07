@@ -2,16 +2,16 @@ package model;
 
 public class RewardType {
 
-    private String name;
+    private String rewardName;
     private double value;
 
     public RewardType(String name, double value) {
-        this.name = name;
+        this.rewardName = name;
         this.value = value;
     }
 
     public String getRewardName() {
-        return this.name;
+        return this.rewardName;
     }
 
     public double getRewardValue() {
@@ -19,7 +19,7 @@ public class RewardType {
     }
 
     public void setRewardName(String name) {
-        this.name = name;
+        this.rewardName = name;
     }
 
     public void setRewardValue(double value) {

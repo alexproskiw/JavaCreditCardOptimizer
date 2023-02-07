@@ -12,17 +12,16 @@ public class MonthlySpending {
     private double entertainmentSpending;
     private double recurringSpending;
 
-    public MonthlySpending(double general, double travel, double grocery, double restaurant, double gas,
-                           double drugStore, double transit, double entertainment, double recurring) {
-        this.generalSpending = general;
-        this.travelSpending = travel;
-        this.grocerySpending = grocery;
-        this.restaurantSpending = restaurant;
-        this.gasSpending = gas;
-        this.drugStoreSpending = drugStore;
-        this.transitSpending = transit;
-        this.entertainmentSpending = entertainment;
-        this.recurringSpending = recurring;
+    public MonthlySpending() {
+        this.generalSpending = 0;
+        this.travelSpending = 0;
+        this.grocerySpending = 0;
+        this.restaurantSpending = 0;
+        this.gasSpending = 0;
+        this.drugStoreSpending = 0;
+        this.transitSpending = 0;
+        this.entertainmentSpending = 0;
+        this.recurringSpending = 0;
     }
 
     public double getGeneralSpending() {
@@ -74,7 +73,7 @@ public class MonthlySpending {
     }
 
     public void setRestaurantSpending(double grocery) {
-        this.grocerySpending = grocery;
+        this.restaurantSpending = grocery;
     }
 
     public void setGasSpending(double gas) {

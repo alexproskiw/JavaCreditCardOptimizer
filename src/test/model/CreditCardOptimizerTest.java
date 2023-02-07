@@ -6,17 +6,16 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CreditCardOptimizerTest {
 
-    ListOfCreditCards locc;
-    ListOfRewardTypes lort;
-    MonthlySpending spend;
+    ListOfCreditCards listOfCreditCards;
+    ListOfRewardTypes listOfRewardTypes;
+    MonthlySpending monthlySpending;
     CreditCardOptimizer optimizer;
 
     @BeforeEach
     void runBefore() {
-        locc = new ListOfCreditCards();
-        lort = new ListOfRewardTypes();
-        spend = new MonthlySpending(1000, 100, 500, 200, 100,
-                50, 50, 50, 200);
+        listOfCreditCards = new ListOfCreditCards();
+        listOfRewardTypes = new ListOfRewardTypes();
+        monthlySpending = new MonthlySpending();
         optimizer = new CreditCardOptimizer();
     }
 
@@ -28,45 +27,60 @@ public class CreditCardOptimizerTest {
 
     @Test
     void testCalculateRewards() {
-        CreditCard card = locc.getCreditCard(0);
+        updateMonthlySpending(1000, 100, 500, 200, 100,
+                50, 50, 50, 200);
+        CreditCard card = listOfCreditCards.getListOfCreditCards().get(0);
         String rewardName = card.getRewardName();
-        RewardType reward = lort.getRewardType(rewardName);
+        RewardType reward = listOfRewardTypes.getRewardType(rewardName);
         double rewardValue = reward.getRewardValue();
-        double result = optimizer.calculateRewards(card, rewardValue, spend);
+        double result = optimizer.calculateRewards(card, rewardValue, monthlySpending);
         assertEquals(160.25, result);
     }
 
     @Test
-    void testCalculateMaxRewards() {
-        optimizer.calculateMaxRewards(locc, lort, spend);
-        assertEquals(516.2, optimizer.getMaxRewards());
-        assertEquals("CIBC Aeroplan Visa Infinite", optimizer.getOptimalCard());
-    }
-
-    @Test
     void testCalculateMaxRewardsNoSpend() {
-        spend = new MonthlySpending(0, 0, 0, 0, 0,
-                0, 0, 0, 0);
-        optimizer.calculateMaxRewards(locc, lort, spend);
+        optimizer.calculateMaxRewards(listOfCreditCards, listOfRewardTypes, monthlySpending);
         assertEquals(0, optimizer.getMaxRewards());
         assertEquals("N/A", optimizer.getOptimalCard());
     }
 
     @Test
     void testCalculateMaxRewardsLowSpend() {
-        spend = new MonthlySpending(100, 0, 200, 50, 25,
+        updateMonthlySpending(100, 0, 200, 50, 25,
                 30, 60, 20, 80);
-        optimizer.calculateMaxRewards(locc, lort, spend);
+        optimizer.calculateMaxRewards(listOfCreditCards, listOfRewardTypes, monthlySpending);
         assertEquals(114.1056, optimizer.getMaxRewards());
         assertEquals("CIBC Aeroplan Visa", optimizer.getOptimalCard());
     }
 
     @Test
+    void testCalculateMaxRewardsAverageSpend() {
+        updateMonthlySpending(1000, 100, 500, 200, 100,
+                50, 50, 50, 200);
+        optimizer.calculateMaxRewards(listOfCreditCards, listOfRewardTypes, monthlySpending);
+        assertEquals(516.2, optimizer.getMaxRewards());
+        assertEquals("CIBC Aeroplan Visa Infinite", optimizer.getOptimalCard());
+    }
+
+    @Test
     void testCalculateMaxRewardsHighSpend() {
-        spend = new MonthlySpending(500, 750, 1000, 2000, 400,
+        updateMonthlySpending(500, 750, 1000, 2000, 400,
                 200, 0, 400, 300);
-        optimizer.calculateMaxRewards(locc, lort, spend);
+        optimizer.calculateMaxRewards(listOfCreditCards, listOfRewardTypes, monthlySpending);
         assertEquals(2184.12, optimizer.getMaxRewards());
         assertEquals("AMEX Cobalt", optimizer.getOptimalCard());
+    }
+
+    private void updateMonthlySpending(double general, double travel, double grocery, double restaurant, double gas,
+                                       double drugStore, double transit, double entertainment, double recurring) {
+        monthlySpending.setGeneralSpending(general);
+        monthlySpending.setTravelSpending(travel);
+        monthlySpending.setGrocerySpending(grocery);
+        monthlySpending.setRestaurantSpending(restaurant);
+        monthlySpending.setGasSpending(gas);
+        monthlySpending.setDrugStoreSpending(drugStore);
+        monthlySpending.setTransitSpending(transit);
+        monthlySpending.setEntertainmentSpending(entertainment);
+        monthlySpending.setRecurringSpending(recurring);
     }
 }
