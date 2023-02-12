@@ -1,15 +1,20 @@
 package model;
 
+// Carries out an optimization to determine the best credit card for a user based on their spending
 public class CreditCardOptimizer {
 
-    private double maxRewards;
-    private String optimalCard;
+    private double maxRewards;      // the maximum $ value the user can get in rewards from a credit card
+    private String optimalCard;     // the name of the credit card that gives the user the maximum $ of rewards
 
+    // Effects: constructs an optimizer with the maximum rewards initialized to 0 and optimal card set to "N/A"
     public CreditCardOptimizer() {
         this.maxRewards = 0;
         this.optimalCard = "N/A";
     }
 
+    // Requires:
+    // Modifies: this
+    // Effects:
     public void calculateMaxRewards(ListOfCreditCards listOfCreditCards, ListOfRewardTypes listOfRewardTypes,
                                     MonthlySpending monthlySpending) {
         for (CreditCard card : listOfCreditCards.getListOfCreditCards()) {
@@ -24,6 +29,9 @@ public class CreditCardOptimizer {
         }
     }
 
+    // Requires: card must not be null, rewardValue must be >= 0
+    // Effects: for a given credit card, calculates the annual $ value of rewards this card will provide based on
+    //              the given reward value in cents per point (cpp) and a particular monthly spending
     public double calculateRewards(CreditCard card, Double rewardValue, MonthlySpending monthlySpending) {
         double annualFee = card.getAnnualFee();
         double generalRewards = 12 * monthlySpending.getGeneralSpending() * card.getGeneralRewards();

@@ -2,9 +2,10 @@ package model;
 
 import java.util.ArrayList;
 
+// A list of credit cards
 public class ListOfCreditCards {
 
-    private ArrayList<CreditCard> listOfCreditCards;
+    private ArrayList<CreditCard> listOfCreditCards;        // a list of credit cards
 
     // Default credit cards
     private CreditCard cibcAventuraVIP = new CreditCard("CIBC Aventura Visa Infinite Privilege",
@@ -44,16 +45,18 @@ public class ListOfCreditCards {
             "AMEX Rewards", 155.88, 1, 2, 5, 5, 2,
             1, 2, 3, 1);
 
-    // Effects: constructs a list of CreditCard, and loads default cards for the user
+    // Effects: constructs a list of credit cards, and adds the default ones
     public ListOfCreditCards() {
         this.listOfCreditCards = new ArrayList<CreditCard>();
         loadDefaultCreditCards();
     }
 
+    // Getter
     public ArrayList<CreditCard> getListOfCreditCards() {
         return listOfCreditCards;
     }
 
+    // Effects: Returns the credit card that has the given card name, or returns null if the card does not exist
     public CreditCard getCreditCard(String cardName) {
         for (CreditCard card : listOfCreditCards) {
             if (card.getCardName().equals(cardName)) {
@@ -63,6 +66,8 @@ public class ListOfCreditCards {
         return null;
     }
 
+    // Effects: Returns true if the credit card that has the given card name is in the list of credit cards,
+    //              otherwise returns false
     public boolean containsCard(String cardName) {
         for (CreditCard card : listOfCreditCards) {
             if (card.getCardName().equals(cardName)) {
@@ -72,6 +77,10 @@ public class ListOfCreditCards {
         return false;
     }
 
+    // Requires: card must not be null
+    // Modifies: this
+    // Effects: if the given card is not already in the list of cards, it is added and the method returns true,
+    //              but if the card is already in the list it is not added and the method returns false
     public boolean addCreditCard(CreditCard card) {
         if (containsCard(card.getCardName())) {
             return false;
@@ -81,6 +90,10 @@ public class ListOfCreditCards {
         }
     }
 
+    // Requires: cardName has a non-zero length
+    // Modifies: this
+    // Effects: if the card with the given reward name is in the list of cards, it is removed from the list
+    //              and the method returns true. Returns false if there is no card matching the given card name.
     public boolean removeCreditCard(String cardName) {
         for (CreditCard card : listOfCreditCards) {
             if (card.getCardName().equals(cardName)) {
@@ -92,7 +105,7 @@ public class ListOfCreditCards {
     }
 
     // Modifies: this
-    // Effects: Adds the default credit cards to the listOfCreditCards
+    // Effects: Adds the default credit cards to the list of credit cards
     private void loadDefaultCreditCards() {
         listOfCreditCards.add(cibcAventuraVIP);
         listOfCreditCards.add(cibcAventuraVI);

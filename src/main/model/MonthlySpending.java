@@ -1,7 +1,9 @@
 package model;
 
+// Represents a user's monthly spending in various categories
 public class MonthlySpending {
 
+    // Different spending categories
     private double generalSpending;
     private double travelSpending;
     private double grocerySpending;
@@ -12,6 +14,7 @@ public class MonthlySpending {
     private double entertainmentSpending;
     private double recurringSpending;
 
+    // Effects: constructs a user's monthly spending, initialized with $0 spent in every category
     public MonthlySpending() {
         this.generalSpending = 0;
         this.travelSpending = 0;
@@ -23,6 +26,8 @@ public class MonthlySpending {
         this.entertainmentSpending = 0;
         this.recurringSpending = 0;
     }
+
+    // Getters
 
     public double getGeneralSpending() {
         return generalSpending;
@@ -59,6 +64,8 @@ public class MonthlySpending {
     public double getRecurringSpending() {
         return recurringSpending;
     }
+
+    // Setters
 
     public void setGeneralSpending(double general) {
         this.generalSpending = general;

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Tests for methods in the ListOfRewardTypes class
 public class ListOfRewardTypesTest {
 
     ListOfRewardTypes listOfRewardTypes;

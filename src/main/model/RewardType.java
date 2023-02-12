@@ -1,14 +1,19 @@
 package model;
 
+// Represents a reward type having a reward name and reward value in cents per point (cpp)
 public class RewardType {
 
-    private String rewardName;
-    private double value;
+    private String rewardName;  // name of the reward
+    private double value;       // value of 1 reward in cents per point (cpp)
 
+    // Requires: rewardName has a non-zero length, and reward value must be >= 0
+    // Effects: constructs a reward type with the given reward name and value in cents per point (cpp)
     public RewardType(String name, double value) {
         this.rewardName = name;
         this.value = value;
     }
+
+    // Getters
 
     public String getRewardName() {
         return this.rewardName;
@@ -17,6 +22,8 @@ public class RewardType {
     public double getRewardValue() {
         return this.value;
     }
+
+    // Setters
 
     public void setRewardName(String name) {
         this.rewardName = name;

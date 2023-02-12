@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+// Tests for methods in the ListOfCreditCard class
 public class ListOfCreditCardsTest {
 
     ListOfCreditCards listOfCreditCards;

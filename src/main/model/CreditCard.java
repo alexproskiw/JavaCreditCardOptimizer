@@ -1,20 +1,26 @@
 package model;
 
+// Represents a credit card having a card name, associated reward name, an annual fee, and reward points gained
+//      for purchases in different categories (e.g., general spending, grocery, etc.)
 public class CreditCard {
 
-    private String cardName;
-    private String rewardName;
-    private double annualFee;
-    private double generalRewards;
-    private double travelRewards;
-    private double groceryRewards;
-    private double restaurantRewards;
-    private double gasRewards;
-    private double drugStoreRewards;
-    private double transitRewards;
-    private double entertainmentRewards;
-    private double recurringRewards;
+    private String cardName;                // card name
+    private String rewardName;              // the type of reward the card earns
+    private double annualFee;               // the annual fee for owning the card
+    private double generalRewards;          // the # of rewards/points the card earns for each $1 spent in general
+    private double travelRewards;           // the # of rewards/points the card earns for each $1 spent on travel
+    private double groceryRewards;          // the # of rewards/points the card earns for each $1 spent on groceries
+    private double restaurantRewards;       // the # of rewards/points the card earns for each $1 spent on restaurants
+    private double gasRewards;              // the # of rewards/points the card earns for each $1 spent on gas
+    private double drugStoreRewards;        // the # of rewards/points the card earns for each $1 spent at drug stores
+    private double transitRewards;          // the # of rewards/points the card earns for each $1 spent on transit
+    private double entertainmentRewards;    // the # of rewards/points the card earns for each $1 spent on entertainment
+    private double recurringRewards;        // the # of rewards/points the card earns for each $1 in recurring purchases
 
+    // Requires: cardName has a non-zero length, reward name must be of an existing reward type,
+    //              annualFee >= 0, and different reward categories >= 0
+    // Effects: constructs a credit card with the given card name, reward name, annual fee, and reward points gained
+    //              for purchases in different categories
     public CreditCard(String cardName, String rewardName, double annualFee,  double general, double travel,
                       double grocery, double restaurant, double gas, double drugStore, double transit,
                       double entertainment, double recurring) {
@@ -31,6 +37,8 @@ public class CreditCard {
         this.entertainmentRewards = entertainment;
         this.recurringRewards = recurring;
     }
+
+    // Getters
 
     public String getCardName() {
         return cardName;
@@ -79,6 +87,8 @@ public class CreditCard {
     public double getRecurringRewards() {
         return recurringRewards;
     }
+
+    // Setters
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
