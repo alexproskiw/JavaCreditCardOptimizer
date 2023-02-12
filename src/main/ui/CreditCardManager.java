@@ -205,8 +205,12 @@ public class CreditCardManager {
         CreditCard newCard = new CreditCard(cardName, rewardName, annualFee, generalSpending, travelSpending,
                 grocerySpending, restaurantSpending, gasSpending, drugStoreSpending, transitSpending,
                 entertainmentSpending, recurringSpending);
-        listOfCreditCards.addCreditCard(newCard);
-        System.out.println("Congratulations, the new credit card has been added to your list!");
+        Boolean wasAddSuccess = listOfCreditCards.addCreditCard(newCard);
+        if (wasAddSuccess) {
+            System.out.println("Congratulations, the new credit card has been added to your list!");
+        } else {
+            System.out.println("There was already a card with that name in the list. This one was not added.");
+        }
         input.nextLine();
     }
 
@@ -293,11 +297,11 @@ public class CreditCardManager {
     private void handleCardsRemoveInput() {
         System.out.println("Please enter the name of the credit card you would like to remove from your list");
         String cardName = input.nextLine();
-        if (! listOfCreditCards.containsCard(cardName)) {
-            System.out.println("Sorry, that card name is not in your list of credit cards. Please try again.");
-        } else {
-            listOfCreditCards.removeCreditCard(cardName);
+        Boolean wasRemoveSuccess = listOfCreditCards.removeCreditCard(cardName);
+        if (wasRemoveSuccess) {
             System.out.println("Congratulations, the credit card has been removed from your list!");
+        } else {
+            System.out.println("Sorry, that card name is not in your list of credit cards. Please try again.");
         }
     }
 
@@ -321,7 +325,6 @@ public class CreditCardManager {
     // Modifies: this
     // Effects: a helper method which modifies the various fields of a given credit card based on provided user input
     private void editCardInfo(CreditCard card) {
-        card.setCardName(getCardNameFromUser());
         card.setRewardName(handleRewardNameInput());
         card.setAnnualFee(getCardAnnualFeeFromUser());
         card.setGeneralRewards(getCardGeneralPointsFromUser());
@@ -427,8 +430,12 @@ public class CreditCardManager {
         System.out.println("What is the value of the reward in cpp (cents per point)?");
         double rewardValue = input.nextDouble();
         RewardType newReward = new RewardType(rewardName, rewardValue);
-        listOfRewardTypes.addRewardType(newReward);
-        System.out.println("Congratulations, the new reward type has been added to your list!");
+        Boolean wasAddSuccess = listOfRewardTypes.addRewardType(newReward);
+        if (wasAddSuccess) {
+            System.out.println("Congratulations, the new reward type has been added to your list!");
+        } else {
+            System.out.println("There was already a reward type with that name in the list. This one was not added.");
+        }
         input.nextLine();
     }
 
@@ -464,10 +471,8 @@ public class CreditCardManager {
     }
 
     // Modifies: this
-    // Effects: a helper method which modifies the various fields of a given reward type based on provided user input
+    // Effects: a helper method which modifies the value of a given reward type based on provided user input
     private void editRewardInfo(RewardType reward) {
-        System.out.println("What is the reward type's name?");
-        reward.setRewardName(input.nextLine());
         System.out.println("What is the value of the reward in cpp (cents per point)?");
         reward.setRewardValue(input.nextDouble());
         System.out.println("Congratulations, the reward's information has been updated");
