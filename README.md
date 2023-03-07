@@ -26,6 +26,8 @@ Key user stories that will be implemented in this application include:
 - As a user, I want to be able to select a credit card from the list of credit cards and view/modify its details.
 - As a user, I want to be able to enter my monthly credit card spending.
 - As a user, I want to be able to receive a recommendation of the credit card that will give me the highest reward value based on my monthly spending.
+- As a user, when I select the quit option from the application menu, I want to have the option to save the changes made to my credit cards, rewards, and spending information.
+- As a user, when I start the application, I want option to load my saved credit cards, rewards, and spending information from file.
 
 ## <ins>Project Rationale</ins>
 This project is of interest to me because for years I simply 
