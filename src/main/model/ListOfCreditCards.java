@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // A list of credit cards
-public class ListOfCreditCards {
+public class ListOfCreditCards implements Writable {
 
     private ArrayList<CreditCard> listOfCreditCards;        // a list of credit cards
 
@@ -46,9 +50,11 @@ public class ListOfCreditCards {
             1, 2, 3, 1);
 
     // Effects: constructs a list of credit cards, and adds the default ones
-    public ListOfCreditCards() {
+    public ListOfCreditCards(Boolean loadDefaults) {
         this.listOfCreditCards = new ArrayList<CreditCard>();
-        loadDefaultCreditCards();
+        if (loadDefaults) {
+            loadDefaultCreditCards();
+        }
     }
 
     // Getter
@@ -119,6 +125,24 @@ public class ListOfCreditCards {
         listOfCreditCards.add(cibcCostco);
         listOfCreditCards.add(simpliiVisa);
         listOfCreditCards.add(amexCobalt);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("credit cards", creditCardsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns credit cards in this list of credit cards as a JSON array
+    private JSONArray creditCardsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (CreditCard card : listOfCreditCards) {
+            jsonArray.put(card.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

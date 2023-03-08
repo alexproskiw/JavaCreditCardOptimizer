@@ -12,9 +12,9 @@ public class CreditCardOptimizer {
         this.optimalCard = "N/A";
     }
 
-    // Requires:
     // Modifies: this
-    // Effects:
+    // Effects: determines the card and dollar value of the maximum rewards that can be earned from a card
+    //          in the list of credit cards
     public void calculateMaxRewards(ListOfCreditCards listOfCreditCards, ListOfRewardTypes listOfRewardTypes,
                                     MonthlySpending monthlySpending) {
         for (CreditCard card : listOfCreditCards.getListOfCreditCards()) {

@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a credit card having a card name, associated reward name, an annual fee, and reward points gained
 //      for purchases in different categories (e.g., general spending, grocery, etc.)
-public class CreditCard {
+public class CreditCard implements Writable {
 
     private String cardName;                // card name
     private String rewardName;              // the type of reward the card earns
@@ -136,6 +139,24 @@ public class CreditCard {
 
     public void setRecurringRewards(double recurring) {
         this.recurringRewards = recurring;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("card name", cardName);
+        json.put("reward name", rewardName);
+        json.put("annual fee", annualFee);
+        json.put("general rewards", generalRewards);
+        json.put("travel rewards", travelRewards);
+        json.put("grocery rewards", groceryRewards);
+        json.put("restaurant rewards", restaurantRewards);
+        json.put("gas rewards", gasRewards);
+        json.put("drug store rewards", drugStoreRewards);
+        json.put("transit rewards", transitRewards);
+        json.put("entertainment rewards", entertainmentRewards);
+        json.put("recurring rewards", recurringRewards);
+        return json;
     }
 
 }

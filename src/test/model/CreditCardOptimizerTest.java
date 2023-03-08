@@ -14,8 +14,8 @@ public class CreditCardOptimizerTest {
 
     @BeforeEach
     void runBefore() {
-        listOfCreditCards = new ListOfCreditCards();
-        listOfRewardTypes = new ListOfRewardTypes();
+        listOfCreditCards = new ListOfCreditCards(true);
+        listOfRewardTypes = new ListOfRewardTypes(true);
         monthlySpending = new MonthlySpending();
         optimizer = new CreditCardOptimizer();
     }
@@ -40,6 +40,17 @@ public class CreditCardOptimizerTest {
 
     @Test
     void testCalculateMaxRewardsNoSpend() {
+        optimizer.calculateMaxRewards(listOfCreditCards, listOfRewardTypes, monthlySpending);
+        assertEquals(0, optimizer.getMaxRewards());
+        assertEquals("N/A", optimizer.getOptimalCard());
+    }
+
+    @Test
+    void testCalculateRewardsNoCardsOrRewardTypes() {
+        listOfCreditCards = new ListOfCreditCards(false);
+        listOfRewardTypes = new ListOfRewardTypes(false);
+        updateMonthlySpending(1000, 100, 500, 200, 100,
+                50, 50, 50, 200);
         optimizer.calculateMaxRewards(listOfCreditCards, listOfRewardTypes, monthlySpending);
         assertEquals(0, optimizer.getMaxRewards());
         assertEquals("N/A", optimizer.getOptimalCard());

@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a reward type having a reward name and reward value in cents per point (cpp)
-public class RewardType {
+public class RewardType implements Writable {
 
     private String rewardName;  // name of the reward
     private double value;       // value of 1 reward in cents per point (cpp)
@@ -31,6 +34,14 @@ public class RewardType {
 
     public void setRewardValue(double value) {
         this.value = value;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("reward name", rewardName);
+        json.put("reward value (cpp)", value);
+        return json;
     }
 
 }

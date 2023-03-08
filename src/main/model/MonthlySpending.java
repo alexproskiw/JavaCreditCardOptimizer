@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a user's monthly spending in various categories
-public class MonthlySpending {
+public class MonthlySpending implements Writable {
 
     // Different spending categories
     private double generalSpending;
@@ -101,5 +104,20 @@ public class MonthlySpending {
 
     public void setRecurringSpending(double recurring) {
         this.recurringSpending = recurring;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("general spending", generalSpending);
+        json.put("travel spending", travelSpending);
+        json.put("grocery spending", grocerySpending);
+        json.put("restaurant spending", restaurantSpending);
+        json.put("gas spending", gasSpending);
+        json.put("drug store spending", drugStoreSpending);
+        json.put("transit spending", transitSpending);
+        json.put("entertainment spending", entertainmentSpending);
+        json.put("recurring spending", recurringSpending);
+        return json;
     }
 }

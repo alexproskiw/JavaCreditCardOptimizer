@@ -12,11 +12,17 @@ public class ListOfRewardTypesTest {
 
     @BeforeEach
     void runBefore() {
-        listOfRewardTypes = new ListOfRewardTypes();
+        listOfRewardTypes = new ListOfRewardTypes(true);
     }
 
     @Test
-    void testConstructor() {
+    void testConstructorNoDefaultsLoaded() {
+        listOfRewardTypes = new ListOfRewardTypes(false);
+        assertEquals(0, listOfRewardTypes.getListOfRewardTypes().size());
+    }
+
+    @Test
+    void testConstructorDefaultsLoaded() {
         assertEquals(7, listOfRewardTypes.getListOfRewardTypes().size());
     }
 

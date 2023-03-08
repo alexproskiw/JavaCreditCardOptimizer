@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // A list of reward types
-public class ListOfRewardTypes {
+public class ListOfRewardTypes implements Writable {
 
     private ArrayList<RewardType> listOfRewardTypes;    // a list of reward types
 
@@ -17,9 +21,11 @@ public class ListOfRewardTypes {
     private RewardType bmoRewards = new RewardType("BMO Points", 0.7);
 
     // Effects: constructs a list of RewardTypes, and adds the default ones
-    public ListOfRewardTypes() {
+    public ListOfRewardTypes(Boolean loadDefaults) {
         this.listOfRewardTypes = new ArrayList<RewardType>();
-        loadDefaultRewardTypes();
+        if (loadDefaults) {
+            loadDefaultRewardTypes();
+        }
     }
 
     // Getter
@@ -85,6 +91,24 @@ public class ListOfRewardTypes {
         listOfRewardTypes.add(sceneRewards);
         listOfRewardTypes.add(hsbcRewards);
         listOfRewardTypes.add(bmoRewards);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("reward types", rewardTypesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns reward types in this list of reward types as a JSON array
+    private JSONArray rewardTypesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (RewardType reward : listOfRewardTypes) {
+            jsonArray.put(reward.toJson());
+        }
+
+        return jsonArray;
     }
 
 }

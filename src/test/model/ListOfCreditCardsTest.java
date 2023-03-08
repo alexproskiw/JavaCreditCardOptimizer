@@ -11,11 +11,17 @@ public class ListOfCreditCardsTest {
 
     @BeforeEach
     void runBefore() {
-        listOfCreditCards = new ListOfCreditCards();
+        listOfCreditCards = new ListOfCreditCards(true);
     }
 
     @Test
-    void testConstructor() {
+    void testConstructorNoDefaultsLoaded() {
+        listOfCreditCards = new ListOfCreditCards(false);
+        assertEquals(0, listOfCreditCards.getListOfCreditCards().size());
+    }
+
+    @Test
+    void testConstructorDefaultsLoaded() {
         assertEquals(12, listOfCreditCards.getListOfCreditCards().size());
     }
 

@@ -1,7 +1,11 @@
 package ui;
 
 import model.*;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
@@ -22,6 +26,11 @@ public class CreditCardManager {
     private static final String PROCEED_COMMAND = "proceed";
     private static final String GO_BACK_COMMAND = "back";
     private static final String QUIT_COMMAND = "quit";
+    private static final String SAVE_COMMAND = "save";
+    private static final String LOAD_COMMAND = "load";
+    private static final String JSON_STORE_CARDS = "./data/creditcards.json";
+    private static final String JSON_STORE_REWARDS = "./data/rewardtypes.json";
+    private static final String JSON_STORE_SPENDING = "./data/spending.json";
 
     private Scanner input;
     private boolean runProgram;
@@ -30,16 +39,35 @@ public class CreditCardManager {
     private MonthlySpending monthlySpending;
     private CreditCardOptimizer optimizer;
     private DecimalFormat df;
+    private JsonWriter jsonWriterCards;
+    private JsonWriter jsonWriterRewards;
+    private JsonWriter jsonWriterSpending;
+    private JsonReader jsonReaderCards;
+    private JsonReader jsonReaderRewards;
+    private JsonReader jsonReaderSpending;
 
     // Effects: constructs a new credit card manager initialized with a scanner, the default list of credit cards,
     //              the default list of reward types, and monthly spending set to $0 in all categories
-    public CreditCardManager() {
+    public CreditCardManager() throws FileNotFoundException {
         input = new Scanner(System.in);
         runProgram = true;
-        listOfCreditCards = new ListOfCreditCards();
-        listOfRewardTypes = new ListOfRewardTypes();
+        listOfCreditCards = new ListOfCreditCards(true);
+        listOfRewardTypes = new ListOfRewardTypes(true);
         monthlySpending = new MonthlySpending();
         df = new DecimalFormat("0.00");
+        initializeWritersAndReaders();
+    }
+
+    // Modifies: this
+    // Effects: initializes the separate json writers and readers for the list of credit cards,
+    //              list of reward types, and monthly spending
+    private void initializeWritersAndReaders() {
+        jsonWriterCards = new JsonWriter(JSON_STORE_CARDS);
+        jsonWriterRewards = new JsonWriter(JSON_STORE_REWARDS);
+        jsonWriterSpending = new JsonWriter(JSON_STORE_SPENDING);
+        jsonReaderCards = new JsonReader(JSON_STORE_CARDS);
+        jsonReaderRewards = new JsonReader(JSON_STORE_REWARDS);
+        jsonReaderSpending = new JsonReader(JSON_STORE_SPENDING);
     }
 
     // Effects: starts the credit card manager application
@@ -67,6 +95,8 @@ public class CreditCardManager {
         System.out.println("-> Enter '" + REWARDS_COMMAND + "' to view and edit your list of rewards");
         System.out.println("-> Enter '" + SPENDING_COMMAND + "' to view and edit your monthly spending");
         System.out.println("-> Enter '" + OPTIMIZE_COMMAND + "' to determine your optimal credit card");
+        System.out.println("-> Enter '" + SAVE_COMMAND + "' to save your current data to file");
+        System.out.println("-> Enter '" + LOAD_COMMAND + "' to load your previous data from file");
         System.out.println("-> Enter '" + QUIT_COMMAND + "' to quit the program at any time");
         printSpacing();
     }
@@ -90,6 +120,10 @@ public class CreditCardManager {
             handleSpendingUserInput();
         } else if (str.equals(OPTIMIZE_COMMAND)) {
             handleOptimizeUserInput();
+        } else if (str.equals(SAVE_COMMAND)) {
+            saveData();
+        } else if (str.equals(LOAD_COMMAND)) {
+            loadData();
         } else if (str.equals(QUIT_COMMAND)) {
             endProgram();
         } else {
@@ -115,7 +149,6 @@ public class CreditCardManager {
         System.out.println("-> Enter '" + REMOVE_COMMAND + "' to remove a credit card from your list");
         System.out.println("-> Enter '" + EDIT_COMMAND + "' to edit the details of a particular credit card");
         System.out.println("-> Enter '" + GO_BACK_COMMAND + "' to return to the previous menu");
-        System.out.println("-> Enter '" + QUIT_COMMAND + "' to quit the program at any time");
         printSpacing();
     }
 
@@ -133,9 +166,6 @@ public class CreditCardManager {
             handleCardsEditInput();
         } else if (str.equals(GO_BACK_COMMAND)) {
             printMainInstructions();
-            return;
-        } else if (str.equals(QUIT_COMMAND)) {
-            endProgram();
             return;
         } else {
             printInvalidCommand();
@@ -377,7 +407,6 @@ public class CreditCardManager {
         System.out.println("-> Enter '" + REMOVE_COMMAND + "' to remove a reward type from your list");
         System.out.println("-> Enter '" + EDIT_COMMAND + "' to edit the details of a particular reward type");
         System.out.println("-> Enter '" + GO_BACK_COMMAND + "' to return to the previous menu");
-        System.out.println("-> Enter '" + QUIT_COMMAND + "' to quit the program at any time");
         printSpacing();
     }
 
@@ -393,9 +422,6 @@ public class CreditCardManager {
             handleRewardsEditInput();
         } else if (str.equals(GO_BACK_COMMAND)) {
             printMainInstructions();
-            return;
-        } else if (str.equals(QUIT_COMMAND)) {
-            endProgram();
             return;
         } else {
             printInvalidCommand();
@@ -493,7 +519,6 @@ public class CreditCardManager {
         System.out.println("-> Enter '" + VIEW_COMMAND + "' to view your monthly spending");
         System.out.println("-> Enter '" + UPDATE_COMMAND + "' to update your monthly spending");
         System.out.println("-> Enter '" + GO_BACK_COMMAND + "' to return to the previous menu");
-        System.out.println("-> Enter '" + QUIT_COMMAND + "' to quit the program at any time");
         printSpacing();
     }
 
@@ -505,9 +530,6 @@ public class CreditCardManager {
             handleSpendingUpdateInput();
         } else if (str.equals(GO_BACK_COMMAND)) {
             printMainInstructions();
-            return;
-        } else if (str.equals(QUIT_COMMAND)) {
-            endProgram();
             return;
         } else {
             printInvalidCommand();
@@ -633,7 +655,6 @@ public class CreditCardManager {
         System.out.println("Otherwise, you can perform the following actions:");
         System.out.println("-> Enter '" + PROCEED_COMMAND + "' to proceed with optimization");
         System.out.println("-> Enter '" + GO_BACK_COMMAND + "' to return to the previous menu");
-        System.out.println("-> Enter '" + QUIT_COMMAND + "' to quit the program at any time");
         printSpacing();
     }
 
@@ -643,9 +664,6 @@ public class CreditCardManager {
             handleOptimizeInput();
         } else if (str.equals(GO_BACK_COMMAND)) {
             printMainInstructions();
-            return;
-        } else if (str.equals(QUIT_COMMAND)) {
-            endProgram();
             return;
         } else {
             printInvalidCommand();
@@ -683,5 +701,89 @@ public class CreditCardManager {
     private void printInvalidCommand() {
         System.out.println("That's an invalid command: Please try again");
     }
-    
+
+    // Effects: saves the current listOfCreditCards, listOfRewardTypes, and monthlySpending to file
+    private void saveData() {
+        saveCreditCards();
+        saveRewardTypes();
+        saveMonthlySpending();
+        handleMainUserInput();
+    }
+
+    // Effects: saves the current listOfCreditCards to file
+    private void saveCreditCards() {
+        try {
+            jsonWriterCards.open();
+            jsonWriterCards.write(listOfCreditCards);
+            jsonWriterCards.close();
+            System.out.println("Saved your current list of credit cards to " + JSON_STORE_CARDS);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_CARDS);
+        }
+    }
+
+    // Effects: saves the current listOfRewardTypes to file
+    private void saveRewardTypes() {
+        try {
+            jsonWriterRewards.open();
+            jsonWriterRewards.write(listOfRewardTypes);
+            jsonWriterRewards.close();
+            System.out.println("Saved your current list of reward types to " + JSON_STORE_REWARDS);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_REWARDS);
+        }
+    }
+
+    // Effects: saves the current monthlySpending to file
+    private void saveMonthlySpending() {
+        try {
+            jsonWriterSpending.open();
+            jsonWriterSpending.write(monthlySpending);
+            jsonWriterSpending.close();
+            System.out.println("Saved your current monthly spending to " + JSON_STORE_SPENDING);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_SPENDING);
+        }
+    }
+
+    // Effects: loads listOfCreditCards, listOfRewardTypes, and monthlySpending from file
+    private void loadData() {
+        loadCreditCards();
+        loadRewardTypes();
+        loadMonthlySpending();
+        handleMainUserInput();
+    }
+
+    // Modifies: this
+    // Effects: loads listOfCreditCards from file
+    private void loadCreditCards() {
+        try {
+            this.listOfCreditCards = jsonReaderCards.readListOfCreditCards();
+            System.out.println("Loaded the list of credit cards from " + JSON_STORE_CARDS);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_CARDS);
+        }
+    }
+
+    // Modifies: this
+    // Effects: loads listOfRewardTypes from file
+    private void loadRewardTypes() {
+        try {
+            this.listOfRewardTypes = jsonReaderRewards.readListOfRewardTypes();
+            System.out.println("Loaded the list of reward types from " + JSON_STORE_REWARDS);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_REWARDS);
+        }
+    }
+
+    // Modifies: this
+    // Effects: loads monthlySpending from file
+    private void loadMonthlySpending() {
+        try {
+            this.monthlySpending = jsonReaderSpending.readMonthlySpending();
+            System.out.println("Loaded the monthly spending from " + JSON_STORE_SPENDING);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_SPENDING);
+        }
+    }
 }
