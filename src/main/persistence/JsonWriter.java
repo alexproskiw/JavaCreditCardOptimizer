@@ -35,14 +35,14 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of a list of credit cards to file
+    // EFFECTS: writes JSON representation of a list of reward types to file
     public void write(ListOfRewardTypes listOfRewardTypes) {
         JSONObject json = listOfRewardTypes.toJson();
         saveToFile(json.toString(TAB));
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of a list of credit cards to file
+    // EFFECTS: writes JSON representation of the monthly spending to file
     public void write(MonthlySpending spending) {
         JSONObject json = spending.toJson();
         saveToFile(json.toString(TAB));
