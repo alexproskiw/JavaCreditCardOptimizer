@@ -1,0 +1,30 @@
+{"reward types": [
+    {
+        "reward value (cpp)": 2.1,
+        "reward name": "Aeroplan"
+    },
+    {
+        "reward value (cpp)": 1.5,
+        "reward name": "Aventura"
+    },
+    {
+        "reward value (cpp)": 1,
+        "reward name": "AMEX Rewards"
+    },
+    {
+        "reward value (cpp)": 1,
+        "reward name": "Cashback"
+    },
+    {
+        "reward value (cpp)": 1,
+        "reward name": "Scene Points"
+    },
+    {
+        "reward value (cpp)": 0.5,
+        "reward name": "HSBC Points"
+    },
+    {
+        "reward value (cpp)": 0.7,
+        "reward name": "BMO Points"
+    }
+]}

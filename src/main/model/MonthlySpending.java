@@ -106,6 +106,7 @@ public class MonthlySpending implements Writable {
         this.recurringSpending = recurring;
     }
 
+    // Effects: Create a json object for the monthly spending
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

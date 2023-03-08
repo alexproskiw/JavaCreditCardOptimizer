@@ -127,6 +127,7 @@ public class ListOfCreditCards implements Writable {
         listOfCreditCards.add(amexCobalt);
     }
 
+    // Effects: Create a json object for the list of credit cards
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

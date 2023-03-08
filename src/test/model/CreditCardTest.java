@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -58,6 +59,23 @@ class CreditCardTest {
         assertEquals(0.45789, card.getTransitRewards());
         assertEquals(1.75, card.getEntertainmentRewards());
         assertEquals(1.2, card.getRecurringRewards());
+    }
+
+    @Test
+    void testToJson() {
+        JSONObject json = card.toJson();
+        assertEquals("Test Credit Card", json.getString("card name"));
+        assertEquals("Cashback", json.getString("reward name"));
+        assertEquals(100, json.getDouble("annual fee"));
+        assertEquals(1.1, json.getDouble("general rewards"));
+        assertEquals(1.3, json.getDouble("travel rewards"));
+        assertEquals(1.5, json.getDouble("grocery rewards"));
+        assertEquals(0.9, json.getDouble("restaurant rewards"));
+        assertEquals(1, json.getDouble("gas rewards"));
+        assertEquals(0.7, json.getDouble("drug store rewards"));
+        assertEquals(2, json.getDouble("transit rewards"));
+        assertEquals(0.5, json.getDouble("entertainment rewards"));
+        assertEquals(0.8, json.getDouble("recurring rewards"));
     }
 
 }

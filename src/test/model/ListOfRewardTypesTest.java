@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,6 +45,18 @@ public class ListOfRewardTypesTest {
 
     @Test
     void testAddRewardType() {
+        RewardType testReward1 = new RewardType("Test Reward 1", 2);
+        RewardType testReward2 = new RewardType("Test Reward 2", 0.7);
+        assertTrue(listOfRewardTypes.addRewardType(testReward1));
+        assertEquals(8, listOfRewardTypes.getListOfRewardTypes().size());
+        assertEquals(testReward1, listOfRewardTypes.getRewardType("Test Reward 1"));
+        assertTrue(listOfRewardTypes.addRewardType(testReward2));
+        assertEquals(9, listOfRewardTypes.getListOfRewardTypes().size());
+        assertEquals(testReward2, listOfRewardTypes.getRewardType("Test Reward 2"));
+    }
+
+    @Test
+    void testAddMultipleRewardTypes() {
         RewardType testReward = new RewardType("Test Reward", 2);
         assertTrue(listOfRewardTypes.addRewardType(testReward));
         assertEquals(8, listOfRewardTypes.getListOfRewardTypes().size());
@@ -81,6 +95,19 @@ public class ListOfRewardTypesTest {
     void testRemoveRewardTypeNotInList() {
         assertFalse(listOfRewardTypes.removeRewardType("Avion Rewards"));
         assertEquals(7, listOfRewardTypes.getListOfRewardTypes().size());
+    }
+
+    @Test
+    void testToJson() {
+        listOfRewardTypes = new ListOfRewardTypes(false);
+        RewardType testReward1 = new RewardType("Test Reward 1", 2);
+        RewardType testReward2 = new RewardType("Test Reward 2", 0.7);
+        assertTrue(listOfRewardTypes.addRewardType(testReward1));
+        assertTrue(listOfRewardTypes.addRewardType(testReward2));
+
+        JSONObject json = listOfRewardTypes.toJson();
+        JSONArray jsonArray = json.getJSONArray("reward types");
+        assertEquals(2, jsonArray.length());
     }
 
 }

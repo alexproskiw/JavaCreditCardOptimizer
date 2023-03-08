@@ -1,0 +1,10 @@
+{"reward types": [
+    {
+        "reward value (cpp)": 1,
+        "reward name": "Cashback"
+    },
+    {
+        "reward value (cpp)": 2.1,
+        "reward name": "Aeroplan"
+    }
+]}

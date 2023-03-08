@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +32,16 @@ public class RewardTypeTest {
 
         testReward2.setRewardValue(2.22);
         assertEquals(2.22, testReward2.getRewardValue());
+    }
+
+    @Test
+    void testToJson() {
+        JSONObject json1 = testReward1.toJson();
+        JSONObject json2 = testReward2.toJson();
+        assertEquals("My Reward 1", json1.getString("reward name"));
+        assertEquals(1.5, json1.getDouble("reward value (cpp)"));
+        assertEquals("My Reward 2", json2.getString("reward name"));
+        assertEquals(0.67, json2.getDouble("reward value (cpp)"));
     }
 
 }

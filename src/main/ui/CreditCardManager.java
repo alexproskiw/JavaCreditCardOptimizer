@@ -74,6 +74,8 @@ public class CreditCardManager {
     public void startCreditCardManager() {
         printSpacing();
         System.out.println("Welcome to your credit card optimizer");
+        printSpacing();
+        loadDataOnStart();
         handleMainUserInput();
     }
 
@@ -122,8 +124,10 @@ public class CreditCardManager {
             handleOptimizeUserInput();
         } else if (str.equals(SAVE_COMMAND)) {
             saveData();
+            handleMainUserInput();
         } else if (str.equals(LOAD_COMMAND)) {
             loadData();
+            handleMainUserInput();
         } else if (str.equals(QUIT_COMMAND)) {
             endProgram();
         } else {
@@ -687,9 +691,39 @@ public class CreditCardManager {
     // Modifies: this
     // Effects: ends the program
     public void endProgram() {
+        saveDataOnQuit();
+        printSpacing();
         runProgram = false;
         System.out.println("Thank you for using your credit card optimizer");
         input.close();
+    }
+
+    // Effects: determines if the user wants to save their information prior to quitting
+    private void saveDataOnQuit() {
+        System.out.println("Would you like to save your data prior to quitting? 'Y' or 'N'");
+        String str = getUserInputString();
+        if (str.equals("y")) {
+            saveData();
+        } else if (str.equals("n")) {
+            System.out.println("Your data was not saved.");
+        } else {
+            printInvalidCommand();
+            saveDataOnQuit();
+        }
+    }
+
+    // Effects: determines if the user wants to load their previous data on startup
+    private void loadDataOnStart() {
+        System.out.println("Would you like to load your previous data prior to starting? 'Y' or 'N'");
+        String str = getUserInputString();
+        if (str.equals("y")) {
+            loadData();
+        } else if (str.equals("n")) {
+            System.out.println("Your previous data was not loaded.");
+        } else {
+            printInvalidCommand();
+            loadDataOnStart();
+        }
     }
 
     // Effects: prints a separation line for formatting
@@ -707,7 +741,6 @@ public class CreditCardManager {
         saveCreditCards();
         saveRewardTypes();
         saveMonthlySpending();
-        handleMainUserInput();
     }
 
     // Effects: saves the current listOfCreditCards to file
@@ -751,7 +784,6 @@ public class CreditCardManager {
         loadCreditCards();
         loadRewardTypes();
         loadMonthlySpending();
-        handleMainUserInput();
     }
 
     // Modifies: this

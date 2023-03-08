@@ -141,6 +141,7 @@ public class CreditCard implements Writable {
         this.recurringRewards = recurring;
     }
 
+    // Effects: Create a json object for the credit card
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

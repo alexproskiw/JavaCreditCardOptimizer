@@ -1,0 +1,30 @@
+{"credit cards": [
+    {
+        "drug store rewards": 0.7,
+        "recurring rewards": 0.8,
+        "card name": "Test Credit Card 1",
+        "travel rewards": 1.3,
+        "grocery rewards": 1.5,
+        "entertainment rewards": 0.5,
+        "reward name": "Cashback",
+        "gas rewards": 1,
+        "general rewards": 1.1,
+        "annual fee": 100,
+        "restaurant rewards": 0.9,
+        "transit rewards": 2
+    },
+    {
+        "drug store rewards": 0.5,
+        "recurring rewards": 1,
+        "card name": "Test Credit Card 2",
+        "travel rewards": 1,
+        "grocery rewards": 2,
+        "entertainment rewards": 2,
+        "reward name": "Aeroplan",
+        "gas rewards": 4,
+        "general rewards": 0.9,
+        "annual fee": 0,
+        "restaurant rewards": 3,
+        "transit rewards": 0.7
+    }
+]}

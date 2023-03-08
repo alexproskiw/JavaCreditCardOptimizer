@@ -26,8 +26,8 @@ Key user stories that will be implemented in this application include:
 - As a user, I want to be able to select a credit card from the list of credit cards and view/modify its details.
 - As a user, I want to be able to enter my monthly credit card spending.
 - As a user, I want to be able to receive a recommendation of the credit card that will give me the highest reward value based on my monthly spending.
-- As a user, when I select the quit option from the application menu, I want to have the option to save the changes made to my credit cards, rewards, and spending information.
-- As a user, when I start the application, I want option to load my saved credit cards, rewards, and spending information from file.
+- As a user, I want the option to save the changes made to my credit cards, rewards, and spending information to file.
+- As a user, I want the option to load my saved credit cards, rewards, and spending information from file.
 
 ## <ins>Project Rationale</ins>
 This project is of interest to me because for years I simply 
@@ -53,5 +53,6 @@ not been considered. Similarly, less tangible perks such as airport lounge
 access and VIP status have not been accounted for.*
 
 ## <ins>References:</ins>
+- Incorporated elements of code from UBC CPSC210 - Json Serialization Demo. Accessed online March 7, 2023 at: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 - Bank of Canada. How Canadians Pay For Things. Accessed online Jan 25, 2023 at: https://www.bankofcanada.ca/2019/10/how-canadians-pay-for-things/
 - Credit Card Picture: <a href="https://www.freepik.com/free-photo/credit-card-payment-buy-sell-products-service_5469634.htm#query=credit%20cards&position=1&from_view=search&track=sph">Image by jcomp</a> on Freepik

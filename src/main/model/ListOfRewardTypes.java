@@ -93,6 +93,7 @@ public class ListOfRewardTypes implements Writable {
         listOfRewardTypes.add(bmoRewards);
     }
 
+    // Effects: Create a json object for the list of reward types
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

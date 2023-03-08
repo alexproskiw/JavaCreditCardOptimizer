@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -39,6 +41,7 @@ public class ListOfCreditCardsTest {
     void testContainsCardNotInList() {
         assertFalse(listOfCreditCards.containsCard("Scotia Momentum Visa Infinite"));
     }
+
     @Test
     void testAddCreditCard() {
         CreditCard testCard = new CreditCard("Test Credit Card", "Cashback", 100,
@@ -47,6 +50,22 @@ public class ListOfCreditCardsTest {
         assertTrue(listOfCreditCards.addCreditCard(testCard));
         assertEquals(13, listOfCreditCards.getListOfCreditCards().size());
         assertEquals(testCard, listOfCreditCards.getCreditCard("Test Credit Card"));
+    }
+
+    @Test
+    void testAddMultipleCreditCards() {
+        CreditCard testCard1 = new CreditCard("Test Credit Card 1", "Cashback", 100,
+                1.1, 1.3, 1.5, 0.9, 1, 0.7,
+                2, 0.5, 0.8);
+        CreditCard testCard2 = new CreditCard("Test Credit Card 2", "Aeroplan", 0,
+                0.9, 1, 2, 3, 4, 0.5,
+                0.7, 2, 1);
+        assertTrue(listOfCreditCards.addCreditCard(testCard1));
+        assertEquals(13, listOfCreditCards.getListOfCreditCards().size());
+        assertEquals(testCard1, listOfCreditCards.getCreditCard("Test Credit Card 1"));
+        assertTrue(listOfCreditCards.addCreditCard(testCard2));
+        assertEquals(14, listOfCreditCards.getListOfCreditCards().size());
+        assertEquals(testCard2, listOfCreditCards.getCreditCard("Test Credit Card 2"));
     }
 
     @Test
@@ -83,6 +102,23 @@ public class ListOfCreditCardsTest {
     void testRemoveCreditCardNotInList() {
         assertFalse(listOfCreditCards.removeCreditCard("Scotia Momentum Visa Infinite"));
         assertEquals(12, listOfCreditCards.getListOfCreditCards().size());
+    }
+
+    @Test
+    void testToJson() {
+        listOfCreditCards = new ListOfCreditCards(false);
+        CreditCard testCard1 = new CreditCard("Test Credit Card 1", "Cashback", 100,
+                1.1, 1.3, 1.5, 0.9, 1, 0.7,
+                2, 0.5, 0.8);
+        CreditCard testCard2 = new CreditCard("Test Credit Card 2", "Aeroplan", 0,
+                0.9, 1, 2, 3, 4, 0.5,
+                0.7, 2, 1);
+        assertTrue(listOfCreditCards.addCreditCard(testCard1));
+        assertTrue(listOfCreditCards.addCreditCard(testCard2));
+
+        JSONObject json = listOfCreditCards.toJson();
+        JSONArray jsonArray = json.getJSONArray("credit cards");
+        assertEquals(2, jsonArray.length());
     }
 
 }

@@ -36,6 +36,7 @@ public class RewardType implements Writable {
         this.value = value;
     }
 
+    // Effects: Create a json object for the reward type
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
