@@ -1,11 +1,11 @@
 {
-    "drug store spending": 0,
-    "grocery spending": 0,
-    "entertainment spending": 0,
-    "general spending": 0,
-    "restaurant spending": 0,
-    "travel spending": 0,
-    "transit spending": 0,
-    "recurring spending": 0,
-    "gas spending": 0
+    "drug store spending": 30,
+    "grocery spending": 30,
+    "entertainment spending": 200,
+    "general spending": 100,
+    "restaurant spending": 10,
+    "travel spending": 200,
+    "transit spending": 100,
+    "recurring spending": 300,
+    "gas spending": 20
 }

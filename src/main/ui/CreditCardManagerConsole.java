@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 // Credit card manager application
 // Note: certain elements of the scanner input/handling were modified from the CPSC 210 "teller" project
-public class CreditCardManager {
+public class CreditCardManagerConsole {
 
     private static final String CARDS_COMMAND = "cards";
     private static final String REWARDS_COMMAND = "rewards";
@@ -48,7 +48,7 @@ public class CreditCardManager {
 
     // Effects: constructs a new credit card manager initialized with a scanner, the default list of credit cards,
     //              the default list of reward types, and monthly spending set to $0 in all categories
-    public CreditCardManager() throws FileNotFoundException {
+    public CreditCardManagerConsole() throws FileNotFoundException {
         input = new Scanner(System.in);
         runProgram = true;
         listOfCreditCards = new ListOfCreditCards(true);

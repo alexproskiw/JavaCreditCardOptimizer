@@ -26,5 +26,9 @@
     {
         "reward value (cpp)": 0.7,
         "reward name": "BMO Points"
+    },
+    {
+        "reward value (cpp)": 10,
+        "reward name": "My Reward"
     }
 ]}
