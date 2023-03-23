@@ -22,6 +22,11 @@ public class MonthlySpendingTab extends Tab {
     }
 
     @Override
+    protected void addMessageBanner() {
+
+    }
+
+
     protected void loadButtons() {
         monthlySpendingEditButton = new JButton("Edit Spending");
         add(monthlySpendingEditButton);

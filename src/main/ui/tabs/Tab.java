@@ -3,6 +3,7 @@ package ui.tabs;
 import ui.CreditCardManagerGraphical;
 
 import javax.swing.*;
+import java.awt.*;
 
 public abstract class Tab extends JPanel {
 
@@ -10,12 +11,13 @@ public abstract class Tab extends JPanel {
 
     public Tab(CreditCardManagerGraphical creditCardManagerGraphical) {
         this.creditCardManagerGraphical = creditCardManagerGraphical;
-        // setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setLayout(new BorderLayout(20, 20));
         addHeader();
-        loadButtons();
+        addMessageBanner();
     }
 
     protected abstract void addHeader();
 
-    protected abstract void loadButtons();
+    protected abstract void addMessageBanner();
+
 }

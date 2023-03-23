@@ -19,6 +19,11 @@ public class OptimizerTab extends Tab {
     }
 
     @Override
+    protected void addMessageBanner() {
+
+    }
+
+
     protected void loadButtons() {
         optimizerButton = new JButton("Optimize");
         add(optimizerButton);

@@ -7,6 +7,9 @@ import ui.CreditCardManagerGraphical;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CreditCardTab extends Tab {
 
@@ -23,29 +26,32 @@ public class CreditCardTab extends Tab {
     private static final JLabel ENTERTAINMENT_REWARDS_LABEL = new JLabel("Entertainment Rewards:");
     private static final JLabel RECURRING_REWARDS_LABEL = new JLabel("Recurring Rewards:");
 
+    private JPanel masterPanel;
+    private JPanel leftPanel;
+    private JPanel creditCardListPanel;
+    private JPanel leftButtonPanel;
+    private JPanel rightPanel;
+    private JPanel cardDetailPanel;
+    private JPanel rightButtonPanel;
+    private JPanel cardNamePanel;
+    private JPanel rewardNamePanel;
+    private JPanel annualFeePanel;
+    private JPanel generalRewardPanel;
+    private JPanel travelRewardPanel;
+    private JPanel groceryRewardPanel;
+    private JPanel restaurantRewardPanel;
+    private JPanel gasRewardPanel;
+    private JPanel drugStoreRewardPanel;
+    private JPanel transitRewardPanel;
+    private JPanel entertainmentRewardPanel;
+    private JPanel recurringRewardPanel;
+
+    private JButton creditCardEditButton;
     private JButton creditCardAddButton;
     private JButton creditCardRemoveButton;
-    private JButton creditCardEditButton;
     private JButton creditCardSaveChangesButton;
-    private JButton creditCardSaveAdditionButton;
-    private ListOfCreditCards listOfCreditCards;
-    private JList listOfCreditCardNames;
-    private JScrollPane scrollPane;
-    private JPanel creditCardListAndDetailsPanel;
-    private JTextArea textArea1;
-
-    private String currentCardName;
-    private String currentRewardName;
-    private String currentAnnualFee;
-    private String currentGeneralRewards;
-    private String currentTravelRewards;
-    private String currentGroceryRewards;
-    private String currentRestaurantRewards;
-    private String currentGasRewards;
-    private String currentDrugStoreRewards;
-    private String currentTransitRewards;
-    private String currentEntertainmentRewards;
-    private String currentRecurringRewards;
+    private JButton creditCardConfirmAddButton;
+    private JButton creditCardConfirmRemoveButton;
 
     private JTextField cardNameField;
     private JTextField rewardNameField;
@@ -60,68 +66,179 @@ public class CreditCardTab extends Tab {
     private JTextField entertainmentRewardField;
     private JTextField recurringRewardField;
 
-    private JPanel cardDetailPanel;
-    private JPanel cardNamePanel;
-    private JPanel rewardNamePanel;
-    private JPanel annualFeePanel;
-    private JPanel generalRewardPanel;
-    private JPanel travelRewardPanel;
-    private JPanel groceryRewardPanel;
-    private JPanel restaurantRewardPanel;
-    private JPanel gasRewardPanel;
-    private JPanel drugStoreRewardPanel;
-    private JPanel transitRewardPanel;
-    private JPanel entertainmentRewardPanel;
-    private JPanel recurringRewardPanel;
+    private JLabel messageBanner;
+    private JScrollPane scrollPane;
+    private JList listOfCreditCardNames;
+    private DefaultListModel<String> listOfCreditCardNamesModel;
+
+    private ListOfCreditCards listOfCreditCards;
+    private CreditCard currentCreditCard;
 
     public CreditCardTab(CreditCardManagerGraphical creditCardManagerGraphical) {
         super(creditCardManagerGraphical);
-        initializeCardDetails();
-        initializeCardDetailFields();
         listOfCreditCards = creditCardManagerGraphical.getListOfCreditCards();
-        setUpCreditCardListAndDetailsPanel();
-        listCreditCardDetails();
+        initializeCardDetailFields();
+        loadMasterPanel();
+        loadLeftPanel();
+        loadRightPanel();
+        loadButtonStatesInitial();
     }
 
     @Override
     protected void addHeader() {
         JLabel header = new JLabel("Credit Card Tab");
-        add(header);
+        header.setHorizontalAlignment(JLabel.CENTER);
+        add(header, BorderLayout.PAGE_START);
     }
 
     @Override
-    protected void loadButtons() {
-        creditCardAddButton = new JButton("Add A Credit Card");
-        add(creditCardAddButton);
-        creditCardRemoveButton = new JButton("Remove Selected Credit Card");
-        add(creditCardRemoveButton);
-        creditCardEditButton = new JButton("Edit Selected Credit Card");
-        add(creditCardEditButton);
-        creditCardSaveChangesButton = new JButton("Save Changes");
-        add(creditCardSaveChangesButton);
-        creditCardSaveAdditionButton = new JButton("Confirm Addition");
-        add(creditCardSaveAdditionButton);
+    protected void addMessageBanner() {
+        messageBanner = new JLabel();
+        messageBanner.setText("Please select a card for more options, or click 'add' to add a new card");
+        messageBanner.setHorizontalAlignment(JLabel.CENTER);
+        add(messageBanner, BorderLayout.PAGE_END);
+    }
+
+    private void initializeCardDetailFields() {
+        cardNameField = new JTextField(20);
+        rewardNameField = new JTextField(20);
+        annualFeeField = new JTextField(20);
+        generalRewardField = new JTextField(20);
+        travelRewardField = new JTextField(20);
+        groceryRewardField = new JTextField(20);
+        restaurantRewardField = new JTextField(20);
+        gasRewardField = new JTextField(20);
+        drugStoreRewardField = new JTextField(20);
+        transitRewardField = new JTextField(20);
+        entertainmentRewardField = new JTextField(20);
+        recurringRewardField = new JTextField(20);
+        resetCreditCardDetailFields();
+        setCardDetailFieldsNotEditable();
+    }
+
+    private void loadMasterPanel() {
+        masterPanel = new JPanel();
+        masterPanel.setLayout(new BoxLayout(masterPanel, BoxLayout.LINE_AXIS));
+        add(masterPanel, BorderLayout.CENTER);
+    }
+
+    protected void loadLeftPanel() {
+        leftPanel = new JPanel();
+        setUpCreditCardListAndDetailsPanel();
+        loadLeftButtons();
+        masterPanel.add(leftPanel);
+    }
+
+    protected void loadRightPanel() {
+        rightPanel = new JPanel();
+        listCreditCardDetails();
+        loadRightButtons();
+        masterPanel.add(rightPanel);
+    }
+
+    private void loadLeftButtons() {
+        leftButtonPanel = new JPanel();
+        loadCreditCardEditButton();
+        loadCreditCardAddButton();
+        loadCreditCardRemoveButton();
+        leftPanel.add(leftButtonPanel);
+    }
+
+    private void loadRightButtons() {
+        rightButtonPanel = new JPanel();
+        loadCreditCardSaveChangesButton();
+        loadCreditCardConfirmAddButton();
+        loadCreditCardConfirmRemoveButton();
+        rightPanel.add(rightButtonPanel);
+    }
+
+    private void loadCreditCardEditButton() {
+        creditCardEditButton = new JButton("Edit Card");
+        creditCardEditButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        handleClickOnEditButton();
+                    }
+                }
+        );
+        leftButtonPanel.add(creditCardEditButton);
+    }
+
+    private void loadCreditCardAddButton() {
+        creditCardAddButton = new JButton("Add New Card");
+        creditCardAddButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        handleClickOnAddButton();
+                    }
+                }
+        );
+        leftButtonPanel.add(creditCardAddButton);
+    }
+
+    private void loadCreditCardRemoveButton() {
+        creditCardRemoveButton = new JButton("Remove Card");
+        creditCardRemoveButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        handleClickOnRemoveButton();
+                    }
+                }
+        );
+        leftButtonPanel.add(creditCardRemoveButton);
+    }
+
+    private void loadCreditCardSaveChangesButton() {
+        creditCardSaveChangesButton = new JButton("Save Edits");
+        creditCardSaveChangesButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        handleClickOnSaveChangesButton();
+                    }
+                }
+        );
+        rightButtonPanel.add(creditCardSaveChangesButton);
+    }
+
+    private void loadCreditCardConfirmAddButton() {
+        creditCardConfirmAddButton = new JButton("Add");
+        creditCardConfirmAddButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        handleClickOnConfirmAddButton();
+                    }
+                }
+        );
+        rightButtonPanel.add(creditCardConfirmAddButton);
+    }
+
+    private void loadCreditCardConfirmRemoveButton() {
+        creditCardConfirmRemoveButton = new JButton("Remove");
+        creditCardConfirmRemoveButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        handleClickOnConfirmRemoveButton();
+                    }
+                }
+        );
+        rightButtonPanel.add(creditCardConfirmRemoveButton);
     }
 
     private void setUpCreditCardListAndDetailsPanel() {
-        creditCardListAndDetailsPanel = new JPanel();
+        creditCardListPanel = new JPanel();
         loadCardNamesToScrollableList();
-        textArea1 = new JTextArea();
-        creditCardListAndDetailsPanel.add(textArea1);
-        add(creditCardListAndDetailsPanel);
+        leftPanel.add(creditCardListPanel);
     }
 
     private void loadCardNamesToScrollableList() {
-        int n = listOfCreditCards.getListOfCreditCards().size();
-        String[] cardNames = new String[n];
-        int i = 0;
+        listOfCreditCardNames = new JList();
+        listOfCreditCardNamesModel = new DefaultListModel();
         for (CreditCard c : listOfCreditCards.getListOfCreditCards()) {
-            cardNames[i] = c.getCardName();
-            i++;
+            listOfCreditCardNamesModel.addElement(c.getCardName());
         }
-        listOfCreditCardNames = new JList(cardNames);
+        listOfCreditCardNames.setModel(listOfCreditCardNamesModel);
         scrollPane = new JScrollPane(listOfCreditCardNames);
-        creditCardListAndDetailsPanel.add(scrollPane);
+        creditCardListPanel.add(scrollPane);
         listenForSelectedCreditCard();
     }
 
@@ -130,30 +247,40 @@ public class CreditCardTab extends Tab {
 
             @Override
             public void valueChanged(ListSelectionEvent evt) {
-                listOfCreditCardNamesValueChanged(evt);
+                handleNewCreditCardSelected(evt);
             }
         });
     }
 
-    private void listOfCreditCardNamesValueChanged(javax.swing.event.ListSelectionEvent evt) {
+    private void handleNewCreditCardSelected(javax.swing.event.ListSelectionEvent evt) {
         String s = (String) listOfCreditCardNames.getSelectedValue();
         for (CreditCard c : listOfCreditCards.getListOfCreditCards()) {
+            if (s == null) {
+                break;
+            }
             if (s.equals(c.getCardName())) {
-                cardNameField.setText(c.getCardName());
-                rewardNameField.setText(c.getRewardName());
-                annualFeeField.setText(String.valueOf(c.getAnnualFee()));
-                generalRewardField.setText(String.valueOf(c.getGeneralRewards()));
-                travelRewardField.setText(String.valueOf(c.getTravelRewards()));
-                groceryRewardField.setText(String.valueOf(c.getGroceryRewards()));
-                restaurantRewardField.setText(String.valueOf(c.getRestaurantRewards()));
-                gasRewardField.setText(String.valueOf(c.getGasRewards()));
-                drugStoreRewardField.setText(String.valueOf(c.getDrugStoreRewards()));
-                transitRewardField.setText(String.valueOf(c.getTransitRewards()));
-                entertainmentRewardField.setText(String.valueOf(c.getEntertainmentRewards()));
-                recurringRewardField.setText(String.valueOf(c.getRecurringRewards()));
+                currentCreditCard = c;
+                setCardDetailFields();
+                messageBanner.setText("Please choose one of 'edit', 'add', or 'remove'");
                 break;
             }
         }
+        loadButtonStatesOnCardClick();
+    }
+
+    private void setCardDetailFields() {
+        cardNameField.setText(currentCreditCard.getCardName());
+        rewardNameField.setText(currentCreditCard.getRewardName());
+        annualFeeField.setText(String.valueOf(currentCreditCard.getAnnualFee()));
+        generalRewardField.setText(String.valueOf(currentCreditCard.getGeneralRewards()));
+        travelRewardField.setText(String.valueOf(currentCreditCard.getTravelRewards()));
+        groceryRewardField.setText(String.valueOf(currentCreditCard.getGroceryRewards()));
+        restaurantRewardField.setText(String.valueOf(currentCreditCard.getRestaurantRewards()));
+        gasRewardField.setText(String.valueOf(currentCreditCard.getGasRewards()));
+        drugStoreRewardField.setText(String.valueOf(currentCreditCard.getDrugStoreRewards()));
+        transitRewardField.setText(String.valueOf(currentCreditCard.getTransitRewards()));
+        entertainmentRewardField.setText(String.valueOf(currentCreditCard.getEntertainmentRewards()));
+        recurringRewardField.setText(String.valueOf(currentCreditCard.getRecurringRewards()));
     }
 
     private void listCreditCardDetails() {
@@ -171,7 +298,7 @@ public class CreditCardTab extends Tab {
         createTransitRewardPanel();
         createEntertainmentRewardPanel();
         createRecurringRewardPanel();
-        add(cardDetailPanel);
+        rightPanel.add(cardDetailPanel);
     }
 
     private void createCardNamePanel() {
@@ -258,34 +385,197 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(recurringRewardPanel);
     }
 
-    private void initializeCardDetails() {
-        currentCardName = "N/A";
-        currentRewardName = "N/A";
-        currentAnnualFee = "N/A";
-        currentGeneralRewards = "N/A";
-        currentTravelRewards = "N/A";
-        currentGroceryRewards = "N/A";
-        currentRestaurantRewards = "N/A";
-        currentGasRewards = "N/A";
-        currentDrugStoreRewards = "N/A";
-        currentTransitRewards = "N/A";
-        currentEntertainmentRewards = "N/A";
-        currentRecurringRewards = "N/A";
+    private void loadButtonStatesInitial() {
+        creditCardEditButton.setEnabled(false);
+        creditCardAddButton.setEnabled(true);
+        creditCardRemoveButton.setEnabled(false);
+        creditCardSaveChangesButton.setEnabled(false);
+        creditCardConfirmAddButton.setEnabled(false);
+        creditCardConfirmRemoveButton.setEnabled(false);
     }
 
-    private void initializeCardDetailFields() {
-        cardNameField = new JTextField(currentCardName);
-        rewardNameField = new JTextField(currentRewardName);
-        annualFeeField = new JTextField(currentAnnualFee);
-        generalRewardField = new JTextField(currentGeneralRewards);
-        travelRewardField = new JTextField(currentTravelRewards);
-        groceryRewardField = new JTextField(currentGroceryRewards);
-        restaurantRewardField = new JTextField(currentRestaurantRewards);
-        gasRewardField = new JTextField(currentGasRewards);
-        drugStoreRewardField = new JTextField(currentDrugStoreRewards);
-        transitRewardField = new JTextField(currentTransitRewards);
-        entertainmentRewardField = new JTextField(currentEntertainmentRewards);
-        recurringRewardField = new JTextField(currentRecurringRewards);
+    private void loadButtonStatesOnCardClick() {
+        creditCardEditButton.setEnabled(true);
+        creditCardAddButton.setEnabled(true);
+        creditCardRemoveButton.setEnabled(true);
+        creditCardSaveChangesButton.setEnabled(false);
+        creditCardConfirmAddButton.setEnabled(false);
+        creditCardConfirmRemoveButton.setEnabled(false);
+    }
+
+    private void loadButtonStatesEdit() {
+        creditCardEditButton.setEnabled(false);
+        creditCardAddButton.setEnabled(false);
+        creditCardRemoveButton.setEnabled(false);
+        creditCardSaveChangesButton.setEnabled(true);
+        creditCardConfirmAddButton.setEnabled(false);
+        creditCardConfirmRemoveButton.setEnabled(false);
+    }
+
+    private void loadButtonStatesAdd() {
+        creditCardEditButton.setEnabled(false);
+        creditCardAddButton.setEnabled(false);
+        creditCardRemoveButton.setEnabled(false);
+        creditCardSaveChangesButton.setEnabled(false);
+        creditCardConfirmAddButton.setEnabled(true);
+        creditCardConfirmRemoveButton.setEnabled(false);
+    }
+
+    private void loadButtonStatesRemove() {
+        creditCardEditButton.setEnabled(false);
+        creditCardAddButton.setEnabled(false);
+        creditCardRemoveButton.setEnabled(false);
+        creditCardSaveChangesButton.setEnabled(false);
+        creditCardConfirmAddButton.setEnabled(false);
+        creditCardConfirmRemoveButton.setEnabled(true);
+    }
+
+    private void setCardDetailFieldsNotEditable() {
+        cardNameField.setEditable(false);
+        rewardNameField.setEditable(false);
+        annualFeeField.setEditable(false);
+        generalRewardField.setEditable(false);
+        travelRewardField.setEditable(false);
+        groceryRewardField.setEditable(false);
+        restaurantRewardField.setEditable(false);
+        gasRewardField.setEditable(false);
+        drugStoreRewardField.setEditable(false);
+        transitRewardField.setEditable(false);
+        entertainmentRewardField.setEditable(false);
+        recurringRewardField.setEditable(false);
+    }
+
+    private void setCardDetailFieldsEditable() {
+        cardNameField.setEditable(true);
+        rewardNameField.setEditable(true);
+        annualFeeField.setEditable(true);
+        generalRewardField.setEditable(true);
+        travelRewardField.setEditable(true);
+        groceryRewardField.setEditable(true);
+        restaurantRewardField.setEditable(true);
+        gasRewardField.setEditable(true);
+        drugStoreRewardField.setEditable(true);
+        transitRewardField.setEditable(true);
+        entertainmentRewardField.setEditable(true);
+        recurringRewardField.setEditable(true);
+    }
+
+    private void setCardDetailFieldsEditableExceptCardName() {
+        cardNameField.setEditable(false);
+        rewardNameField.setEditable(true);
+        annualFeeField.setEditable(true);
+        generalRewardField.setEditable(true);
+        travelRewardField.setEditable(true);
+        groceryRewardField.setEditable(true);
+        restaurantRewardField.setEditable(true);
+        gasRewardField.setEditable(true);
+        drugStoreRewardField.setEditable(true);
+        transitRewardField.setEditable(true);
+        entertainmentRewardField.setEditable(true);
+        recurringRewardField.setEditable(true);
+    }
+
+    private void handleClickOnEditButton() {
+        loadButtonStatesEdit();
+        setCardDetailFieldsEditableExceptCardName();
+        messageBanner.setText("Please update card details and save");
+    }
+
+    private void handleClickOnAddButton() {
+        resetCreditCardDetailFields();
+        loadButtonStatesAdd();
+        setCardDetailFieldsEditable();
+        messageBanner.setText("Please enter card details and confirm add");
+    }
+
+    private void handleClickOnRemoveButton() {
+        loadButtonStatesRemove();
+        messageBanner.setText("Please confirm you want to remove this card");
+    }
+
+    private void handleClickOnSaveChangesButton() {
+        getUpdatedCardDetailsAndSave();
+        refreshCardList();
+        loadButtonStatesInitial();
+        setCardDetailFieldsNotEditable();
+        messageBanner.setText("Changes saved");
+    }
+
+    private void handleClickOnConfirmAddButton() {
+        getNewCardDetailsAndSave();
+        refreshCardList();
+        loadButtonStatesInitial();
+        setCardDetailFieldsNotEditable();
+    }
+
+    private void handleClickOnConfirmRemoveButton() {
+        listOfCreditCards.removeCreditCard(currentCreditCard.getCardName());
+        refreshCardList();
+        loadButtonStatesInitial();
+        resetCreditCardDetailFields();
+        messageBanner.setText("Card removed");
+    }
+
+    private void getUpdatedCardDetailsAndSave() {
+        currentCreditCard.setCardName(cardNameField.getText());
+        currentCreditCard.setRewardName(rewardNameField.getText());
+        currentCreditCard.setAnnualFee(Double.valueOf(annualFeeField.getText()));
+        currentCreditCard.setGeneralRewards(Double.valueOf(generalRewardField.getText()));
+        currentCreditCard.setTravelRewards(Double.valueOf(travelRewardField.getText()));
+        currentCreditCard.setGroceryRewards(Double.valueOf(groceryRewardField.getText()));
+        currentCreditCard.setRestaurantRewards(Double.valueOf(restaurantRewardField.getText()));
+        currentCreditCard.setGasRewards(Double.valueOf(gasRewardField.getText()));
+        currentCreditCard.setDrugStoreRewards(Double.valueOf(drugStoreRewardField.getText()));
+        currentCreditCard.setTransitRewards(Double.valueOf(transitRewardField.getText()));
+        currentCreditCard.setEntertainmentRewards(Double.valueOf(entertainmentRewardField.getText()));
+        currentCreditCard.setRecurringRewards(Double.valueOf(recurringRewardField.getText()));
+    }
+
+    private void getNewCardDetailsAndSave() {
+        String cardName = cardNameField.getText();
+        String rewardName = rewardNameField.getText();
+        Double annualFee = Double.valueOf(annualFeeField.getText());
+        Double generalSpending = Double.valueOf(generalRewardField.getText());
+        Double travelSpending = Double.valueOf(travelRewardField.getText());
+        Double grocerySpending = Double.valueOf(groceryRewardField.getText());
+        Double restaurantSpending = Double.valueOf(restaurantRewardField.getText());
+        Double gasSpending = Double.valueOf(gasRewardField.getText());
+        Double drugStoreSpending = Double.valueOf(drugStoreRewardField.getText());
+        Double transitSpending = Double.valueOf(transitRewardField.getText());
+        Double entertainmentSpending = Double.valueOf(entertainmentRewardField.getText());
+        Double recurringSpending = Double.valueOf(recurringRewardField.getText());
+        CreditCard newCard = new CreditCard(cardName, rewardName, annualFee, generalSpending, travelSpending,
+                grocerySpending, restaurantSpending, gasSpending, drugStoreSpending, transitSpending,
+                entertainmentSpending, recurringSpending);
+        Boolean wasAddSuccess = listOfCreditCards.addCreditCard(newCard);
+        if (wasAddSuccess) {
+            messageBanner.setText("Card added");
+        } else {
+            messageBanner.setText("There is already a card with that name. This one was not added.");
+        }
+    }
+
+    private void refreshCardList() {
+        listOfCreditCardNamesModel = new DefaultListModel();
+        for (CreditCard c : listOfCreditCards.getListOfCreditCards()) {
+            listOfCreditCardNamesModel.addElement(c.getCardName());
+        }
+        listOfCreditCardNames.setModel(listOfCreditCardNamesModel);
+    }
+
+    private void resetCreditCardDetailFields() {
+        cardNameField.setText("N/A");
+        rewardNameField.setText("N/A");
+        annualFeeField.setText("N/A");
+        generalRewardField.setText("N/A");
+        travelRewardField.setText("N/A");
+        groceryRewardField.setText("N/A");
+        restaurantRewardField.setText("N/A");
+        gasRewardField.setText("N/A");
+        drugStoreRewardField.setText("N/A");
+        transitRewardField.setText("N/A");
+        entertainmentRewardField.setText("N/A");
+        recurringRewardField.setText("N/A");
     }
 
 }

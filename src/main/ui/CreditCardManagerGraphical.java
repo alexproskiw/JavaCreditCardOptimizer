@@ -21,7 +21,7 @@ public class CreditCardManagerGraphical {
     private static final int OPTIMIZER_TAB_INDEX = 3;
     private static final int PERSISTENCE_TAB_INDEX = 4;
     private static final int WIDTH = 1000;
-    private static final int HEIGHT = 1000;
+    private static final int HEIGHT = 520;
     private static final String TITLE = "Credit Card Manager";
     private static final String JSON_STORE_CARDS = "./data/creditcards.json";
     private static final String JSON_STORE_REWARDS = "./data/rewardtypes.json";

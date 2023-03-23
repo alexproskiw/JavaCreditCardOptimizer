@@ -20,6 +20,10 @@ public class PersistenceTab extends Tab {
     }
 
     @Override
+    protected void addMessageBanner() {
+
+    }
+
     protected void loadButtons() {
         saveButton = new JButton("Save Data");
         add(saveButton);
