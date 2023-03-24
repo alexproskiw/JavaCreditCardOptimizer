@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// A tab displaying all the users monthly spending in different categories,
+//      and functionality for editing this spending
 public class MonthlySpendingTab extends Tab {
 
     private static final JLabel GENERAL_SPENDING_LABEL = new JLabel("General Spending:");
@@ -48,6 +50,8 @@ public class MonthlySpendingTab extends Tab {
 
     private JLabel messageBanner;
 
+    // Effects: constructs a monthly spending tab with spending detail fields,
+    //              a master panel, and edit/save buttons
     public MonthlySpendingTab(CreditCardManagerGraphical creditCardManagerGraphical) {
         super(creditCardManagerGraphical);
         initializeSpendingDetailFields();
@@ -55,6 +59,8 @@ public class MonthlySpendingTab extends Tab {
         loadButtonStatesInitial();
     }
 
+    // Modifies: this
+    // Effects: adds a tab header at the top of the GUI
     @Override
     protected void addHeader() {
         JLabel header = new JLabel("Monthly Spending Tab");
@@ -62,6 +68,8 @@ public class MonthlySpendingTab extends Tab {
         add(header, BorderLayout.PAGE_START);
     }
 
+    // Modifies: this
+    // Effects: adds a message banner at the bottom of the GUI
     @Override
     protected void addMessageBanner() {
         messageBanner = new JLabel();
@@ -70,6 +78,8 @@ public class MonthlySpendingTab extends Tab {
         add(messageBanner, BorderLayout.PAGE_END);
     }
 
+    // Effects: Initializes text fields for the monthly spending details, calls methods to set the fields to
+    //              the value stored in the monthly spending object, and make the fields not editable
     private void initializeSpendingDetailFields() {
         generalSpendingField = new JTextField(20);
         travelSpendingField = new JTextField(20);
@@ -84,6 +94,9 @@ public class MonthlySpendingTab extends Tab {
         setSpendingDetailFieldsNotEditable();
     }
 
+    // Modifies: this
+    // Effects: creates a master panel and adds it to the monthly spending tab, calls methods to set up the
+    //              spending details, and load applicable buttons
     private void loadMasterPanel() {
         masterPanel = new JPanel();
         masterPanel.setLayout(new BoxLayout(masterPanel, BoxLayout.PAGE_AXIS));
@@ -92,6 +105,8 @@ public class MonthlySpendingTab extends Tab {
         add(masterPanel, BorderLayout.CENTER);
     }
 
+    // Modifies: this
+    // Effects: Loads edit, and save changes buttons. Adds them to the master panel.
     private void loadCenterButtons() {
         centerButtonPanel = new JPanel();
         loadSpendingEditButton();
@@ -99,6 +114,8 @@ public class MonthlySpendingTab extends Tab {
         masterPanel.add(centerButtonPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes edit button. Adds to the button panel.
     private void loadSpendingEditButton() {
         spendingEditButton = new JButton("Edit Spending");
         spendingEditButton.addActionListener(
@@ -111,6 +128,8 @@ public class MonthlySpendingTab extends Tab {
         centerButtonPanel.add(spendingEditButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes save changes button. Adds to right button panel.
     private void loadSpendingSaveChangesButton() {
         spendingSaveChangesButton = new JButton("Save Edits");
         spendingSaveChangesButton.addActionListener(
@@ -123,6 +142,8 @@ public class MonthlySpendingTab extends Tab {
         centerButtonPanel.add(spendingSaveChangesButton);
     }
 
+    // Modifies: this
+    // Effects: sets each monthly spending category equal to the value stored in the monthlySpending object
     public void setSpendingDetailFields() {
         generalSpendingField.setText(String.valueOf(
                 creditCardManagerGraphical.getMonthlySpending().getGeneralSpending()));
@@ -144,6 +165,8 @@ public class MonthlySpendingTab extends Tab {
                 creditCardManagerGraphical.getMonthlySpending().getRecurringSpending()));
     }
 
+    // Modifies: this
+    // Effects: Creates a panel and calls methods to load in panels for the various monthly spending categories.
     private void listSpendingDetails() {
         spendingDetailPanel = new JPanel();
         spendingDetailPanel.setLayout(new BoxLayout(spendingDetailPanel, BoxLayout.Y_AXIS));
@@ -159,6 +182,8 @@ public class MonthlySpendingTab extends Tab {
         masterPanel.add(spendingDetailPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the general spending
     private void createGeneralSpendingPanel() {
         generalSpendingPanel = new JPanel();
         generalSpendingPanel.add(GENERAL_SPENDING_LABEL);
@@ -166,6 +191,8 @@ public class MonthlySpendingTab extends Tab {
         spendingDetailPanel.add(generalSpendingPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the travel spending
     private void createTravelSpendingPanel() {
         travelSpendingPanel = new JPanel();
         travelSpendingPanel.add(TRAVEL_SPENDING_LABEL);
@@ -173,6 +200,8 @@ public class MonthlySpendingTab extends Tab {
         spendingDetailPanel.add(travelSpendingPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the grocery spending
     private void createGrocerySpendingPanel() {
         grocerySpendingPanel = new JPanel();
         grocerySpendingPanel.add(GROCERY_SPENDING_LABEL);
@@ -180,6 +209,8 @@ public class MonthlySpendingTab extends Tab {
         spendingDetailPanel.add(grocerySpendingPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the restaurant spending
     private void createRestaurantSpendingPanel() {
         restaurantSpendingPanel = new JPanel();
         restaurantSpendingPanel.add(RESTAURANT_SPENDING_LABEL);
@@ -187,6 +218,8 @@ public class MonthlySpendingTab extends Tab {
         spendingDetailPanel.add(restaurantSpendingPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the gas spending
     private void createGasSpendingPanel() {
         gasSpendingPanel = new JPanel();
         gasSpendingPanel.add(GAS_SPENDING_LABEL);
@@ -194,6 +227,8 @@ public class MonthlySpendingTab extends Tab {
         spendingDetailPanel.add(gasSpendingPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the drug store spending
     private void createDrugStoreSpendingPanel() {
         drugStoreSpendingPanel = new JPanel();
         drugStoreSpendingPanel.add(DRUG_STORE_SPENDING_LABEL);
@@ -201,6 +236,8 @@ public class MonthlySpendingTab extends Tab {
         spendingDetailPanel.add(drugStoreSpendingPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the transit spending
     private void createTransitSpendingPanel() {
         transitSpendingPanel = new JPanel();
         transitSpendingPanel.add(TRANSIT_SPENDING_LABEL);
@@ -208,6 +245,8 @@ public class MonthlySpendingTab extends Tab {
         spendingDetailPanel.add(transitSpendingPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the entertainment spending
     private void createEntertainmentSpendingPanel() {
         entertainmentSpendingPanel = new JPanel();
         entertainmentSpendingPanel.add(ENTERTAINMENT_SPENDING_LABEL);
@@ -215,6 +254,8 @@ public class MonthlySpendingTab extends Tab {
         spendingDetailPanel.add(entertainmentSpendingPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the recurring spending
     private void createRecurringSpendingPanel() {
         recurringSpendingPanel = new JPanel();
         recurringSpendingPanel.add(RECURRING_SPENDING_LABEL);
@@ -222,17 +263,22 @@ public class MonthlySpendingTab extends Tab {
         spendingDetailPanel.add(recurringSpendingPanel);
     }
 
+    // Modifies: this
+    // Effects: Sets buttons to the initial state (only edit)
     private void loadButtonStatesInitial() {
         spendingEditButton.setEnabled(true);
         spendingSaveChangesButton.setEnabled(false);
     }
 
-
+    // Modifies: this
+    // Effects: Sets buttons to the state once the spending is being edited (allowing save edits)
     private void loadButtonStatesEdit() {
         spendingEditButton.setEnabled(false);
         spendingSaveChangesButton.setEnabled(true);
     }
 
+    // Modifies: this
+    // Effects: Prevents any of the spending fields from being edited
     private void setSpendingDetailFieldsNotEditable() {
         generalSpendingField.setEditable(false);
         travelSpendingField.setEditable(false);
@@ -245,6 +291,8 @@ public class MonthlySpendingTab extends Tab {
         recurringSpendingField.setEditable(false);
     }
 
+    // Modifies: this
+    // Effects: Allows all the spending fields to be edited
     private void setSpendingDetailFieldsEditable() {
         generalSpendingField.setEditable(true);
         travelSpendingField.setEditable(true);
@@ -257,12 +305,17 @@ public class MonthlySpendingTab extends Tab {
         recurringSpendingField.setEditable(true);
     }
 
+    // Effects: Process clicking on the edit button by updating the appropriate buttons and
+    //              making fields editable
     private void handleClickOnEditButton() {
         loadButtonStatesEdit();
         setSpendingDetailFieldsEditable();
         messageBanner.setText("Please update spending details and save");
     }
 
+    // Modifies: this
+    // Effects: Process clicking on the save changes button by calling a helper method,
+    //              updating the appropriate buttons, and making the fields no longer editable
     private void handleClickOnSaveChangesButton() {
         getUpdatedSpendingDetailsAndSave();
         loadButtonStatesInitial();
@@ -270,7 +323,9 @@ public class MonthlySpendingTab extends Tab {
         messageBanner.setText("Changes saved");
     }
 
-
+    // Requires: all spending entries must be doubles
+    // Modifies: this
+    // Effects: updates the monthly spending parameters with the values entered in the text fields
     private void getUpdatedSpendingDetailsAndSave() {
         creditCardManagerGraphical.getMonthlySpending().setGeneralSpending(
                 Double.valueOf(generalSpendingField.getText()));

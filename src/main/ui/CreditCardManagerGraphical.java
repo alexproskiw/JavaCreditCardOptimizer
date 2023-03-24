@@ -14,7 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
-
+// Credit card manager application, graphics interface version
+// Note: certain elements of the panels and tabs were modified from the CPSC 210 "smarthome" project
 public class CreditCardManagerGraphical {
 
     private static final int CREDIT_CARD_TAB_INDEX = 0;
@@ -23,7 +24,7 @@ public class CreditCardManagerGraphical {
     private static final int OPTIMIZER_TAB_INDEX = 3;
     private static final int PERSISTENCE_TAB_INDEX = 4;
     private static final int WIDTH = 1000;
-    private static final int HEIGHT = 520;
+    private static final int HEIGHT = 600;
     private static final String TITLE = "Credit Card Manager";
     private static final String JSON_STORE_CARDS = "./data/creditcards.json";
     private static final String JSON_STORE_REWARDS = "./data/rewardtypes.json";
@@ -48,6 +49,9 @@ public class CreditCardManagerGraphical {
     private JsonReader jsonReaderRewards;
     private JsonReader jsonReaderSpending;
 
+
+    // Effects: constructs a new credit card manager tabbed GUI initialized with the default list of credit cards,
+    //              the default list of reward types, and monthly spending set to $0 in all categories
     public CreditCardManagerGraphical() {
         listOfCreditCards = new ListOfCreditCards(true);
         listOfRewardTypes = new ListOfRewardTypes(true);
@@ -59,6 +63,8 @@ public class CreditCardManagerGraphical {
         initializeWritersAndReaders();
     }
 
+    // Modifies: this
+    // Effects: creates the overall frame for the GUI
     private void setFrame() {
         frame = new JFrame();
         frame.setTitle(TITLE);
@@ -67,12 +73,17 @@ public class CreditCardManagerGraphical {
         frame.setVisible(true);
     }
 
+    // Modifies: this
+    // Effects: adds a tabbed sidebar to the left of the frame
     private void loadSidebar() {
         sidebar = new JTabbedPane();
         sidebar.setTabPlacement(JTabbedPane.LEFT);
         frame.add(sidebar);
     }
 
+    // Modifies: this
+    // Effects: Creates the separate credit card tab, reward tab, monthly spending tab, optimizer tab, and
+    //              persistence tab. Adds them to the sidebar.
     private void loadTabs() {
         creditCardTab = new CreditCardTab(this);
         rewardTab = new RewardTab(this);
@@ -102,18 +113,6 @@ public class CreditCardManagerGraphical {
         jsonReaderCards = new JsonReader(JSON_STORE_CARDS);
         jsonReaderRewards = new JsonReader(JSON_STORE_REWARDS);
         jsonReaderSpending = new JsonReader(JSON_STORE_SPENDING);
-    }
-
-    public ListOfCreditCards getListOfCreditCards() {
-        return listOfCreditCards;
-    }
-
-    public ListOfRewardTypes getListOfRewardTypes() {
-        return listOfRewardTypes;
-    }
-
-    public MonthlySpending getMonthlySpending() {
-        return monthlySpending;
     }
 
     // Effects: saves the current listOfCreditCards, listOfRewardTypes, and monthlySpending to file
@@ -159,7 +158,8 @@ public class CreditCardManagerGraphical {
         }
     }
 
-    // Effects: loads listOfCreditCards, listOfRewardTypes, and monthlySpending from file
+    // Effects: loads listOfCreditCards, listOfRewardTypes, and monthlySpending from file.
+    //              Also refresh the appropriate display for each tab to reflect these loaded changes.
     public void loadData() {
         loadCreditCards();
         loadRewardTypes();
@@ -201,6 +201,20 @@ public class CreditCardManagerGraphical {
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_SPENDING);
         }
+    }
+
+    // Getters
+
+    public ListOfCreditCards getListOfCreditCards() {
+        return listOfCreditCards;
+    }
+
+    public ListOfRewardTypes getListOfRewardTypes() {
+        return listOfRewardTypes;
+    }
+
+    public MonthlySpending getMonthlySpending() {
+        return monthlySpending;
     }
 
 }

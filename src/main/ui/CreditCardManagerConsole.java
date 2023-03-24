@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Scanner;
 
-// Credit card manager application
+// Credit card manager application, console based version
 // Note: certain elements of the scanner input/handling were modified from the CPSC 210 "teller" project
 public class CreditCardManagerConsole {
 

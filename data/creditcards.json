@@ -112,20 +112,6 @@
         "transit rewards": 2
     },
     {
-        "drug store rewards": 0.5,
-        "recurring rewards": 1,
-        "card name": "CIBC Dividend Visa",
-        "travel rewards": 0.5,
-        "grocery rewards": 2,
-        "entertainment rewards": 0.5,
-        "reward name": "Cashback",
-        "gas rewards": 1,
-        "general rewards": 0.5,
-        "annual fee": 0,
-        "restaurant rewards": 1,
-        "transit rewards": 1
-    },
-    {
         "drug store rewards": 1,
         "recurring rewards": 1,
         "card name": "CIBC Costco Mastercard",
@@ -168,17 +154,17 @@
         "transit rewards": 2
     },
     {
-        "drug store rewards": 5,
-        "recurring rewards": 2,
+        "drug store rewards": 2,
+        "recurring rewards": 5,
         "card name": "My Card",
-        "travel rewards": 9,
-        "grocery rewards": 8,
-        "entertainment rewards": 3,
-        "reward name": "Cashback",
-        "gas rewards": 6,
-        "general rewards": 10,
-        "annual fee": 100,
-        "restaurant rewards": 7,
-        "transit rewards": 4
+        "travel rewards": 2,
+        "grocery rewards": 2,
+        "entertainment rewards": 4,
+        "reward name": "My Reward",
+        "gas rewards": 2,
+        "general rewards": 2,
+        "annual fee": 0,
+        "restaurant rewards": 2,
+        "transit rewards": 3
     }
 ]}

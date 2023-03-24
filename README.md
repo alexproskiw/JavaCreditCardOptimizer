@@ -54,5 +54,14 @@ access and VIP status have not been accounted for.*
 
 ## <ins>References:</ins>
 - Incorporated elements of code from UBC CPSC210 - Json Serialization Demo. Accessed online March 7, 2023 at: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+- Incorporated elements of code from UBC CPSC210 - Smarthome Project. Accessed online March 21, 2023 at: https://github.students.cs.ubc.ca/CPSC210/LongFormProblemStarters
 - Bank of Canada. How Canadians Pay For Things. Accessed online Jan 25, 2023 at: https://www.bankofcanada.ca/2019/10/how-canadians-pay-for-things/
 - Credit Card Picture: <a href="https://www.freepik.com/free-photo/credit-card-payment-buy-sell-products-service_5469634.htm#query=credit%20cards&position=1&from_view=search&track=sph">Image by jcomp</a> on Freepik
+
+## <ins>Instructions for Grader:</ins>
+- You can generate the first required action related to adding credit cards to a list of credit cards by clicking on the "Credit Cards" tab, clicking "Add New Card", filling in the appropriate details, and clicking "Add"
+- You can generate the second required action related to removing credit cards from a list of credit cards by clicking on the "Credit Cards" tab, clicking on a credit card in the list, clicking "Remove Card", and confirming by clicking "Remove"
+- You can generate a third action related to editing a credit card within the list of credit cards by clicking on the "Credit Cards" tab, clicking on a credit card in the list, clicking "Edit Card", editing the appropriate fields, and clicking "Save Edits"
+- You can locate the visual component by clicking the "Optimizer" tab and clicking the "Optimize" button. A progress bar will appear, visually updating as the optimization proceeds.
+- You can save the state of the application by clicking the "Save/Load" tab and clicking the "Save Data" button
+- You can reload the state of the application by clicking the "Save/Load" tab and clicking the "Load Data" button

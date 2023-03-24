@@ -1,6 +1,6 @@
 {"reward types": [
     {
-        "reward value (cpp)": 2.1,
+        "reward value (cpp)": 3,
         "reward name": "Aeroplan"
     },
     {
@@ -24,15 +24,7 @@
         "reward name": "HSBC Points"
     },
     {
-        "reward value (cpp)": 0.7,
-        "reward name": "BMO Points"
-    },
-    {
         "reward value (cpp)": 2,
-        "reward name": "My Point"
-    },
-    {
-        "reward value (cpp)": 3,
-        "reward name": "My Point 2"
+        "reward name": "My Reward"
     }
 ]}

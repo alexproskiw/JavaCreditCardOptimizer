@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 
+// A tab which recommends the best card for the user based on their unique spending
 public class OptimizerTab extends Tab {
 
     private static final JLabel RECOMMENDED_CARD_LABEL = new JLabel("Your recommended card is:");
@@ -34,6 +35,8 @@ public class OptimizerTab extends Tab {
     private CreditCardOptimizer optimizer;
     private DecimalFormat df;
 
+    // Effects: constructs an optimizer tab with recommendation fields,
+    //              a master panel, an optimize buttons, and a visual loading bar
     public OptimizerTab(CreditCardManagerGraphical creditCardManagerGraphical) {
         super(creditCardManagerGraphical);
         optimizer = new CreditCardOptimizer();
@@ -42,6 +45,8 @@ public class OptimizerTab extends Tab {
         loadMasterPanel();
     }
 
+    // Modifies: this
+    // Effects: adds a tab header at the top of the GUI
     @Override
     protected void addHeader() {
         JLabel header = new JLabel("Optimizer Tab");
@@ -49,6 +54,8 @@ public class OptimizerTab extends Tab {
         add(header, BorderLayout.PAGE_START);
     }
 
+    // Modifies: this
+    // Effects: adds a message banner at the bottom of the GUI
     @Override
     protected void addMessageBanner() {
         messageBanner = new JLabel();
@@ -57,12 +64,17 @@ public class OptimizerTab extends Tab {
         add(messageBanner, BorderLayout.PAGE_END);
     }
 
+    // Effects: Initializes text fields for the recommended card and value, calls methods to set the fields to
+    //              the value stored in the optimizer object
     private void initializeOptimizerDetailFields() {
         recommendedCardField = new JTextField(20);
         valueField = new JTextField(20);
         setOptimizerDetailFields();
     }
 
+    // Modifies: this
+    // Effects: creates a master panel and adds it to the optimizer tab, calls methods to set up the
+    //              optimizer details, load applicable buttons, and load the image panel
     private void loadMasterPanel() {
         masterPanel = new JPanel();
         masterPanel.setLayout(new BoxLayout(masterPanel, BoxLayout.PAGE_AXIS));
@@ -72,12 +84,16 @@ public class OptimizerTab extends Tab {
         add(masterPanel, BorderLayout.CENTER);
     }
 
+    // Modifies: this
+    // Effects: Loads the optimize button. Adds it to the master panel.
     private void loadCenterButtons() {
         centerButtonPanel = new JPanel();
         loadOptimizerButton();
         masterPanel.add(centerButtonPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes optimize button. Adds to the button panel.
     private void loadOptimizerButton() {
         optimizerButton = new JButton("Run Optimizer");
         optimizerButton.addActionListener(
@@ -90,6 +106,9 @@ public class OptimizerTab extends Tab {
         centerButtonPanel.add(optimizerButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes the image panel with a progress bar. Adds to the master panel.
+    //              Sets visibility to false.
     private void loadOptimizerImagePanel() {
         optimizeImagePanel = new JPanel();
         progressBar = new JProgressBar();
@@ -100,6 +119,9 @@ public class OptimizerTab extends Tab {
         optimizeImagePanel.setVisible(false);
     }
 
+    // Modifies: this
+    // Effects: sets the recommended card and value fields equal to the value stored in the monthlySpending object,
+    //              also sets the fields not editable
     private void setOptimizerDetailFields() {
         recommendedCardField.setText(optimizer.getOptimalCard());
         valueField.setText(String.valueOf(optimizer.getMaxRewards()));
@@ -107,6 +129,8 @@ public class OptimizerTab extends Tab {
         valueField.setEditable(false);
     }
 
+    // Modifies: this
+    // Effects: Creates a panel and calls methods to load in panels for the recommended card and value.
     private void listOptimizerDetails() {
         optimizerDetailPanel = new JPanel();
         optimizerDetailPanel.setLayout(new BoxLayout(optimizerDetailPanel, BoxLayout.Y_AXIS));
@@ -115,6 +139,8 @@ public class OptimizerTab extends Tab {
         masterPanel.add(optimizerDetailPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the recommended card
     private void createRecommendedCardPanel() {
         recommendedCardPanel = new JPanel();
         recommendedCardPanel.add(RECOMMENDED_CARD_LABEL);
@@ -122,6 +148,8 @@ public class OptimizerTab extends Tab {
         optimizerDetailPanel.add(recommendedCardPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the value of the recommended card
     private void createValuePanel() {
         valuePanel = new JPanel();
         valuePanel.add(VALUE_LABEL);
@@ -129,6 +157,9 @@ public class OptimizerTab extends Tab {
         optimizerDetailPanel.add(valuePanel);
     }
 
+    // Modifies: this
+    // Effects: Process clicking on the optimize button by making the progress bar visible, visually updating the
+    //              progress bar to simulate the computer "thinking", and then displaying the optimizer results
     private void handleClickOnOptimizerButton() {
         optimizeImagePanel.setVisible(true);
         Runnable updateProgressBar = new Runnable() {
@@ -152,6 +183,9 @@ public class OptimizerTab extends Tab {
         t.start();
     }
 
+    // Modifies: this
+    // Effects: hides the progress bar, updates the recommended card and value with the values from the optimizer
+    //              object, and resets the progress bar to 0 for future optimizations
     private void displayOptimizeResult() {
         optimizeImagePanel.setVisible(false);
         recommendedCardField.setEditable(true);

@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// A tab displaying all credit cards, their details, and functionality for editing, adding, and removing cards
 public class CreditCardTab extends Tab {
 
     private static final JLabel CARD_NAME_LABEL = new JLabel("Card Name:");
@@ -72,6 +73,8 @@ public class CreditCardTab extends Tab {
 
     private CreditCard currentCreditCard;
 
+    // Effects: constructs a credit card tab with card detail fields initialized to "N/A", a left and right panel,
+    //              and various buttons
     public CreditCardTab(CreditCardManagerGraphical creditCardManagerGraphical) {
         super(creditCardManagerGraphical);
         initializeCardDetailFields();
@@ -81,6 +84,8 @@ public class CreditCardTab extends Tab {
         loadButtonStatesInitial();
     }
 
+    // Modifies: this
+    // Effects: adds a tab header at the top of the GUI
     @Override
     protected void addHeader() {
         JLabel header = new JLabel("Credit Card Tab");
@@ -88,6 +93,8 @@ public class CreditCardTab extends Tab {
         add(header, BorderLayout.PAGE_START);
     }
 
+    // Modifies: this
+    // Effects: adds a message banner at the bottom of the GUI
     @Override
     protected void addMessageBanner() {
         messageBanner = new JLabel();
@@ -96,6 +103,8 @@ public class CreditCardTab extends Tab {
         add(messageBanner, BorderLayout.PAGE_END);
     }
 
+    // Effects: Initializes text fields for the details for a credit card, calls methods to set the fields to
+    //              "N/A" and make the fields not editable
     private void initializeCardDetailFields() {
         cardNameField = new JTextField(20);
         rewardNameField = new JTextField(20);
@@ -113,19 +122,27 @@ public class CreditCardTab extends Tab {
         setCardDetailFieldsNotEditable();
     }
 
+    // Modifies: this
+    // Effects: creates a master panel and adds it to the credit card tab
     private void loadMasterPanel() {
         masterPanel = new JPanel();
         masterPanel.setLayout(new BoxLayout(masterPanel, BoxLayout.LINE_AXIS));
         add(masterPanel, BorderLayout.CENTER);
     }
 
+    // Modifies: this
+    // Effects: creates a left panel and adds it to the master panel, calls methods to set up the credit card list
+    //              and load applicable buttons
     protected void loadLeftPanel() {
         leftPanel = new JPanel();
-        setUpCreditCardListAndDetailsPanel();
+        setUpCreditCardListPanel();
         loadLeftButtons();
         masterPanel.add(leftPanel);
     }
 
+    // Modifies: this
+    // Effects: creates a right panel and adds it to the master panel, calls methods to set up the credit card details
+    //              and load applicable buttons
     protected void loadRightPanel() {
         rightPanel = new JPanel();
         listCreditCardDetails();
@@ -133,6 +150,8 @@ public class CreditCardTab extends Tab {
         masterPanel.add(rightPanel);
     }
 
+    // Modifies: this
+    // Effects: Loads edit, add, and remove buttons. Adds them to the left panel.
     private void loadLeftButtons() {
         leftButtonPanel = new JPanel();
         loadCreditCardEditButton();
@@ -141,6 +160,8 @@ public class CreditCardTab extends Tab {
         leftPanel.add(leftButtonPanel);
     }
 
+    // Modifies: this
+    // Effects: Loads save changes, confirm add, and confirm remove buttons. Adds them to the right panel.
     private void loadRightButtons() {
         rightButtonPanel = new JPanel();
         loadCreditCardSaveChangesButton();
@@ -149,6 +170,8 @@ public class CreditCardTab extends Tab {
         rightPanel.add(rightButtonPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes edit button. Adds to left button panel.
     private void loadCreditCardEditButton() {
         creditCardEditButton = new JButton("Edit Card");
         creditCardEditButton.addActionListener(
@@ -161,6 +184,8 @@ public class CreditCardTab extends Tab {
         leftButtonPanel.add(creditCardEditButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes add button. Adds to left button panel.
     private void loadCreditCardAddButton() {
         creditCardAddButton = new JButton("Add New Card");
         creditCardAddButton.addActionListener(
@@ -173,6 +198,8 @@ public class CreditCardTab extends Tab {
         leftButtonPanel.add(creditCardAddButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes remove button. Adds to left button panel.
     private void loadCreditCardRemoveButton() {
         creditCardRemoveButton = new JButton("Remove Card");
         creditCardRemoveButton.addActionListener(
@@ -185,6 +212,8 @@ public class CreditCardTab extends Tab {
         leftButtonPanel.add(creditCardRemoveButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes save changes button. Adds to right button panel.
     private void loadCreditCardSaveChangesButton() {
         creditCardSaveChangesButton = new JButton("Save Edits");
         creditCardSaveChangesButton.addActionListener(
@@ -197,6 +226,8 @@ public class CreditCardTab extends Tab {
         rightButtonPanel.add(creditCardSaveChangesButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes confirm add button. Adds to right button panel.
     private void loadCreditCardConfirmAddButton() {
         creditCardConfirmAddButton = new JButton("Add");
         creditCardConfirmAddButton.addActionListener(
@@ -209,6 +240,8 @@ public class CreditCardTab extends Tab {
         rightButtonPanel.add(creditCardConfirmAddButton);
     }
 
+    // Modifies: this
+    // Effects: Initializes confirm remove button. Adds to right button panel.
     private void loadCreditCardConfirmRemoveButton() {
         creditCardConfirmRemoveButton = new JButton("Remove");
         creditCardConfirmRemoveButton.addActionListener(
@@ -221,12 +254,18 @@ public class CreditCardTab extends Tab {
         rightButtonPanel.add(creditCardConfirmRemoveButton);
     }
 
-    private void setUpCreditCardListAndDetailsPanel() {
+    // Modifies: this
+    // Effects: Creates a panel and loads a scrollable list of credit cards to it.
+    //              Assigns this panel to the left panel.
+    private void setUpCreditCardListPanel() {
         creditCardListPanel = new JPanel();
         loadCardNamesToScrollableList();
         leftPanel.add(creditCardListPanel);
     }
 
+    // Modifies: this
+    // Effects: Creates a scrollable list of all the credit card names and adds the list to the panel.
+    //              Calls the method to identify when a given credit card is clicked.
     private void loadCardNamesToScrollableList() {
         listOfCreditCardNames = new JList();
         listOfCreditCardNamesModel = new DefaultListModel();
@@ -239,6 +278,7 @@ public class CreditCardTab extends Tab {
         listenForSelectedCreditCard();
     }
 
+    // Effects: adds a method to respond to a given credit card in the list being clicked
     private void listenForSelectedCreditCard() {
         listOfCreditCardNames.addListSelectionListener(new ListSelectionListener() {
 
@@ -249,6 +289,9 @@ public class CreditCardTab extends Tab {
         });
     }
 
+    // Modifies: this
+    // Effects: Takes the selected credit card and sets it to the "currentCreditCard". Calls a method to
+    //              show the details for the selected credit card. Also updates buttons as appropriate.
     private void handleNewCreditCardSelected(javax.swing.event.ListSelectionEvent evt) {
         String s = (String) listOfCreditCardNames.getSelectedValue();
         for (CreditCard c : creditCardManagerGraphical.getListOfCreditCards().getListOfCreditCards()) {
@@ -265,6 +308,8 @@ public class CreditCardTab extends Tab {
         loadButtonStatesOnCardClick();
     }
 
+    // Modifies: this
+    // Effects: Fills in card detail fields with info from the "currentCreditCard" variable
     private void setCardDetailFields() {
         cardNameField.setText(currentCreditCard.getCardName());
         rewardNameField.setText(currentCreditCard.getRewardName());
@@ -280,6 +325,8 @@ public class CreditCardTab extends Tab {
         recurringRewardField.setText(String.valueOf(currentCreditCard.getRecurringRewards()));
     }
 
+    // Modifies: this
+    // Effects: Creates a panel and calls methods to load in panels for the various credit card details.
     private void listCreditCardDetails() {
         cardDetailPanel = new JPanel();
         cardDetailPanel.setLayout(new BoxLayout(cardDetailPanel, BoxLayout.Y_AXIS));
@@ -298,6 +345,8 @@ public class CreditCardTab extends Tab {
         rightPanel.add(cardDetailPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card name
     private void createCardNamePanel() {
         cardNamePanel = new JPanel();
         cardNamePanel.add(CARD_NAME_LABEL);
@@ -305,6 +354,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(cardNamePanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card reward name
     private void createRewardNamePanel() {
         rewardNamePanel = new JPanel();
         rewardNamePanel.add(REWARD_NAME_LABEL);
@@ -312,6 +363,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(rewardNamePanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card annual fee
     private void createAnnualFeePanel() {
         annualFeePanel = new JPanel();
         annualFeePanel.add(ANNUAL_FEE_LABEL);
@@ -319,6 +372,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(annualFeePanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card general reward points
     private void createGeneralRewardPanel() {
         generalRewardPanel = new JPanel();
         generalRewardPanel.add(GENERAL_REWARDS_LABEL);
@@ -326,6 +381,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(generalRewardPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card travel reward points
     private void createTravelRewardPanel() {
         travelRewardPanel = new JPanel();
         travelRewardPanel.add(TRAVEL_REWARDS_LABEL);
@@ -333,6 +390,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(travelRewardPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card grocery reward points
     private void createGroceryRewardPanel() {
         groceryRewardPanel = new JPanel();
         groceryRewardPanel.add(GROCERY_REWARDS_LABEL);
@@ -340,6 +399,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(groceryRewardPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card restaurant reward points
     private void createRestaurantRewardPanel() {
         restaurantRewardPanel = new JPanel();
         restaurantRewardPanel.add(RESTAURANT_REWARDS_LABEL);
@@ -347,6 +408,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(restaurantRewardPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card gas reward points
     private void createGasRewardPanel() {
         gasRewardPanel = new JPanel();
         gasRewardPanel.add(GAS_REWARDS_LABEL);
@@ -354,6 +417,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(gasRewardPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card drug store reward points
     private void createDrugStoreRewardPanel() {
         drugStoreRewardPanel = new JPanel();
         drugStoreRewardPanel.add(DRUG_STORE_REWARDS_LABEL);
@@ -361,6 +426,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(drugStoreRewardPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card transit reward points
     private void createTransitRewardPanel() {
         transitRewardPanel = new JPanel();
         transitRewardPanel.add(TRANSIT_REWARDS_LABEL);
@@ -368,6 +435,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(transitRewardPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card entertainment reward points
     private void createEntertainmentRewardPanel() {
         entertainmentRewardPanel = new JPanel();
         entertainmentRewardPanel.add(ENTERTAINMENT_REWARDS_LABEL);
@@ -375,6 +444,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(entertainmentRewardPanel);
     }
 
+    // Modifies: this
+    // Effects: Initializes a panel to display the credit card recurring reward points
     private void createRecurringRewardPanel() {
         recurringRewardPanel = new JPanel();
         recurringRewardPanel.add(RECURRING_REWARDS_LABEL);
@@ -382,6 +453,8 @@ public class CreditCardTab extends Tab {
         cardDetailPanel.add(recurringRewardPanel);
     }
 
+    // Modifies: this
+    // Effects: Sets buttons to the initial state (only add)
     private void loadButtonStatesInitial() {
         creditCardEditButton.setEnabled(false);
         creditCardAddButton.setEnabled(true);
@@ -391,6 +464,8 @@ public class CreditCardTab extends Tab {
         creditCardConfirmRemoveButton.setEnabled(false);
     }
 
+    // Modifies: this
+    // Effects: Sets buttons to the state once a card is selected from the list (allowing edit/add/remove)
     private void loadButtonStatesOnCardClick() {
         creditCardEditButton.setEnabled(true);
         creditCardAddButton.setEnabled(true);
@@ -400,6 +475,8 @@ public class CreditCardTab extends Tab {
         creditCardConfirmRemoveButton.setEnabled(false);
     }
 
+    // Modifies: this
+    // Effects: Sets buttons to the state once a card is being edited (allowing save edits)
     private void loadButtonStatesEdit() {
         creditCardEditButton.setEnabled(false);
         creditCardAddButton.setEnabled(false);
@@ -409,6 +486,8 @@ public class CreditCardTab extends Tab {
         creditCardConfirmRemoveButton.setEnabled(false);
     }
 
+    // Modifies: this
+    // Effects: Sets buttons to the state once a card is being added (allowing confirm add)
     private void loadButtonStatesAdd() {
         creditCardEditButton.setEnabled(false);
         creditCardAddButton.setEnabled(false);
@@ -418,6 +497,8 @@ public class CreditCardTab extends Tab {
         creditCardConfirmRemoveButton.setEnabled(false);
     }
 
+    // Modifies: this
+    // Effects: Sets buttons to the state once a card is being removed (allowing confirm remove)
     private void loadButtonStatesRemove() {
         creditCardEditButton.setEnabled(false);
         creditCardAddButton.setEnabled(false);
@@ -427,6 +508,8 @@ public class CreditCardTab extends Tab {
         creditCardConfirmRemoveButton.setEnabled(true);
     }
 
+    // Modifies: this
+    // Effects: Prevents any of the credit card fields from being edited
     private void setCardDetailFieldsNotEditable() {
         cardNameField.setEditable(false);
         rewardNameField.setEditable(false);
@@ -442,6 +525,8 @@ public class CreditCardTab extends Tab {
         recurringRewardField.setEditable(false);
     }
 
+    // Modifies: this
+    // Effects: Allows all the credit card fields to be edited
     private void setCardDetailFieldsEditable() {
         cardNameField.setEditable(true);
         rewardNameField.setEditable(true);
@@ -457,6 +542,8 @@ public class CreditCardTab extends Tab {
         recurringRewardField.setEditable(true);
     }
 
+    // Modifies: this
+    // Effects: Allows all the credit card fields to be edited except for the card name
     private void setCardDetailFieldsEditableExceptCardName() {
         cardNameField.setEditable(false);
         rewardNameField.setEditable(true);
@@ -472,12 +559,16 @@ public class CreditCardTab extends Tab {
         recurringRewardField.setEditable(true);
     }
 
+    // Effects: Process clicking on the edit button by updating the appropriate buttons and
+    //              making fields editable except for the card name
     private void handleClickOnEditButton() {
         loadButtonStatesEdit();
         setCardDetailFieldsEditableExceptCardName();
         messageBanner.setText("Please update card details and save");
     }
 
+    // Effects: Process clicking on the add button by resetting all fields, updating the appropriate buttons,
+    //              and making fields editable
     private void handleClickOnAddButton() {
         resetCreditCardDetailFields();
         loadButtonStatesAdd();
@@ -485,11 +576,15 @@ public class CreditCardTab extends Tab {
         messageBanner.setText("Please enter card details and confirm add");
     }
 
+    // Effects: Process clicking on the remove button by updating the appropriate buttons (2-step removal process)
     private void handleClickOnRemoveButton() {
         loadButtonStatesRemove();
         messageBanner.setText("Please confirm you want to remove this card");
     }
 
+    // Modifies: this
+    // Effects: Process clicking on the save changes button by calling a helper method, refreshing the
+    //              credit card list, updating the appropriate buttons, and making the fields no longer editable
     private void handleClickOnSaveChangesButton() {
         getUpdatedCardDetailsAndSave();
         refreshCardList();
@@ -498,6 +593,9 @@ public class CreditCardTab extends Tab {
         messageBanner.setText("Changes saved");
     }
 
+    // Modifies: this
+    // Effects: Process clicking on the confirm add button by calling a helper method, refreshing the
+    //              credit card list, updating the appropriate buttons, and making the fields no longer editable
     private void handleClickOnConfirmAddButton() {
         getNewCardDetailsAndSave();
         refreshCardList();
@@ -505,6 +603,9 @@ public class CreditCardTab extends Tab {
         setCardDetailFieldsNotEditable();
     }
 
+    // Modifies: this
+    // Effects: Process clicking on the confirm remove button by removing the selected card, refreshing the
+    //              credit card list, updating the appropriate buttons, and resetting the field text
     private void handleClickOnConfirmRemoveButton() {
         creditCardManagerGraphical.getListOfCreditCards().removeCreditCard(currentCreditCard.getCardName());
         refreshCardList();
@@ -513,6 +614,9 @@ public class CreditCardTab extends Tab {
         messageBanner.setText("Card removed");
     }
 
+    // Requires: rewardNameField must be an existing RewardType, and all subsequent fields must be filled with Doubles
+    // Modifies: this
+    // Effects: for the selected credit card, updates its parameters with the values entered in the text fields
     private void getUpdatedCardDetailsAndSave() {
         currentCreditCard.setCardName(cardNameField.getText());
         currentCreditCard.setRewardName(rewardNameField.getText());
@@ -528,6 +632,10 @@ public class CreditCardTab extends Tab {
         currentCreditCard.setRecurringRewards(Double.valueOf(recurringRewardField.getText()));
     }
 
+    // Requires: rewardNameField must be an existing RewardType, and all subsequent fields must be filled with Doubles
+    // Modifies: this
+    // Effects: creates a new credit card with the values entered in the text fields, unless the card name
+    //              is already taken in which case the addition of the new card fails
     private void getNewCardDetailsAndSave() {
         String cardName = cardNameField.getText();
         String rewardName = rewardNameField.getText();
@@ -552,6 +660,8 @@ public class CreditCardTab extends Tab {
         }
     }
 
+    // Modifies: this
+    // Effects: updates the scrollable list of credit cards to reflect any edits/additions/removals
     public void refreshCardList() {
         listOfCreditCardNamesModel = new DefaultListModel();
         for (CreditCard c : creditCardManagerGraphical.getListOfCreditCards().getListOfCreditCards()) {
@@ -560,6 +670,8 @@ public class CreditCardTab extends Tab {
         listOfCreditCardNames.setModel(listOfCreditCardNamesModel);
     }
 
+    // Modifies: this
+    // Effects: set all credit card fields to "N/A"
     private void resetCreditCardDetailFields() {
         cardNameField.setText("N/A");
         rewardNameField.setText("N/A");
