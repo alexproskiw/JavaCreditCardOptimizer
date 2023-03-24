@@ -168,17 +168,17 @@
         "transit rewards": 2
     },
     {
-        "drug store rewards": 10,
-        "recurring rewards": 10,
+        "drug store rewards": 5,
+        "recurring rewards": 2,
         "card name": "My Card",
-        "travel rewards": 10,
-        "grocery rewards": 10,
-        "entertainment rewards": 10,
-        "reward name": "My Reward",
-        "gas rewards": 10,
+        "travel rewards": 9,
+        "grocery rewards": 8,
+        "entertainment rewards": 3,
+        "reward name": "Cashback",
+        "gas rewards": 6,
         "general rewards": 10,
-        "annual fee": 0,
-        "restaurant rewards": 10,
-        "transit rewards": 10
+        "annual fee": 100,
+        "restaurant rewards": 7,
+        "transit rewards": 4
     }
 ]}

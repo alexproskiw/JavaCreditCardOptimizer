@@ -1,7 +1,6 @@
 package ui.tabs;
 
 import model.CreditCard;
-import model.ListOfCreditCards;
 import ui.CreditCardManagerGraphical;
 
 import javax.swing.*;
@@ -71,12 +70,10 @@ public class CreditCardTab extends Tab {
     private JList listOfCreditCardNames;
     private DefaultListModel<String> listOfCreditCardNamesModel;
 
-    private ListOfCreditCards listOfCreditCards;
     private CreditCard currentCreditCard;
 
     public CreditCardTab(CreditCardManagerGraphical creditCardManagerGraphical) {
         super(creditCardManagerGraphical);
-        listOfCreditCards = creditCardManagerGraphical.getListOfCreditCards();
         initializeCardDetailFields();
         loadMasterPanel();
         loadLeftPanel();
@@ -233,7 +230,7 @@ public class CreditCardTab extends Tab {
     private void loadCardNamesToScrollableList() {
         listOfCreditCardNames = new JList();
         listOfCreditCardNamesModel = new DefaultListModel();
-        for (CreditCard c : listOfCreditCards.getListOfCreditCards()) {
+        for (CreditCard c : creditCardManagerGraphical.getListOfCreditCards().getListOfCreditCards()) {
             listOfCreditCardNamesModel.addElement(c.getCardName());
         }
         listOfCreditCardNames.setModel(listOfCreditCardNamesModel);
@@ -254,7 +251,7 @@ public class CreditCardTab extends Tab {
 
     private void handleNewCreditCardSelected(javax.swing.event.ListSelectionEvent evt) {
         String s = (String) listOfCreditCardNames.getSelectedValue();
-        for (CreditCard c : listOfCreditCards.getListOfCreditCards()) {
+        for (CreditCard c : creditCardManagerGraphical.getListOfCreditCards().getListOfCreditCards()) {
             if (s == null) {
                 break;
             }
@@ -509,7 +506,7 @@ public class CreditCardTab extends Tab {
     }
 
     private void handleClickOnConfirmRemoveButton() {
-        listOfCreditCards.removeCreditCard(currentCreditCard.getCardName());
+        creditCardManagerGraphical.getListOfCreditCards().removeCreditCard(currentCreditCard.getCardName());
         refreshCardList();
         loadButtonStatesInitial();
         resetCreditCardDetailFields();
@@ -547,7 +544,7 @@ public class CreditCardTab extends Tab {
         CreditCard newCard = new CreditCard(cardName, rewardName, annualFee, generalSpending, travelSpending,
                 grocerySpending, restaurantSpending, gasSpending, drugStoreSpending, transitSpending,
                 entertainmentSpending, recurringSpending);
-        Boolean wasAddSuccess = listOfCreditCards.addCreditCard(newCard);
+        Boolean wasAddSuccess = creditCardManagerGraphical.getListOfCreditCards().addCreditCard(newCard);
         if (wasAddSuccess) {
             messageBanner.setText("Card added");
         } else {
@@ -555,9 +552,9 @@ public class CreditCardTab extends Tab {
         }
     }
 
-    private void refreshCardList() {
+    public void refreshCardList() {
         listOfCreditCardNamesModel = new DefaultListModel();
-        for (CreditCard c : listOfCreditCards.getListOfCreditCards()) {
+        for (CreditCard c : creditCardManagerGraphical.getListOfCreditCards().getListOfCreditCards()) {
             listOfCreditCardNamesModel.addElement(c.getCardName());
         }
         listOfCreditCardNames.setModel(listOfCreditCardNamesModel);

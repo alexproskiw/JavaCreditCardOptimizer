@@ -10,6 +10,8 @@ import ui.tabs.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DecimalFormat;
 
 
@@ -28,18 +30,17 @@ public class CreditCardManagerGraphical {
     private static final String JSON_STORE_SPENDING = "./data/spending.json";
 
     private JFrame frame;
-    private JPanel creditCardTab;
-    private JPanel rewardTab;
-    private JPanel monthlySpendingTab;
-    private JPanel optimizerTab;
-    private JPanel persistenceTab;
+    private CreditCardTab creditCardTab;
+    private RewardTab rewardTab;
+    private MonthlySpendingTab monthlySpendingTab;
+    private OptimizerTab optimizerTab;
+    private PersistenceTab persistenceTab;
     private JTabbedPane sidebar;
 
     private ListOfCreditCards listOfCreditCards;
     private ListOfRewardTypes listOfRewardTypes;
     private MonthlySpending monthlySpending;
-    private CreditCardOptimizer optimizer;
-    private DecimalFormat df;
+
     private JsonWriter jsonWriterCards;
     private JsonWriter jsonWriterRewards;
     private JsonWriter jsonWriterSpending;
@@ -51,12 +52,11 @@ public class CreditCardManagerGraphical {
         listOfCreditCards = new ListOfCreditCards(true);
         listOfRewardTypes = new ListOfRewardTypes(true);
         monthlySpending = new MonthlySpending();
-        df = new DecimalFormat("0.00");
-        initializeWritersAndReaders();
 
         setFrame();
         loadSidebar();
         loadTabs();
+        initializeWritersAndReaders();
     }
 
     private void setFrame() {
@@ -114,6 +114,93 @@ public class CreditCardManagerGraphical {
 
     public MonthlySpending getMonthlySpending() {
         return monthlySpending;
+    }
+
+    // Effects: saves the current listOfCreditCards, listOfRewardTypes, and monthlySpending to file
+    public void saveData() {
+        saveCreditCards();
+        saveRewardTypes();
+        saveMonthlySpending();
+    }
+
+    // Effects: saves the current listOfCreditCards to file
+    private void saveCreditCards() {
+        try {
+            jsonWriterCards.open();
+            jsonWriterCards.write(listOfCreditCards);
+            jsonWriterCards.close();
+            System.out.println("Saved your current list of credit cards to " + JSON_STORE_CARDS);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_CARDS);
+        }
+    }
+
+    // Effects: saves the current listOfRewardTypes to file
+    private void saveRewardTypes() {
+        try {
+            jsonWriterRewards.open();
+            jsonWriterRewards.write(listOfRewardTypes);
+            jsonWriterRewards.close();
+            System.out.println("Saved your current list of reward types to " + JSON_STORE_REWARDS);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_REWARDS);
+        }
+    }
+
+    // Effects: saves the current monthlySpending to file
+    private void saveMonthlySpending() {
+        try {
+            jsonWriterSpending.open();
+            jsonWriterSpending.write(monthlySpending);
+            jsonWriterSpending.close();
+            System.out.println("Saved your current monthly spending to " + JSON_STORE_SPENDING);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_SPENDING);
+        }
+    }
+
+    // Effects: loads listOfCreditCards, listOfRewardTypes, and monthlySpending from file
+    public void loadData() {
+        loadCreditCards();
+        loadRewardTypes();
+        loadMonthlySpending();
+
+        creditCardTab.refreshCardList();
+        rewardTab.refreshRewardList();
+        monthlySpendingTab.setSpendingDetailFields();
+    }
+
+    // Modifies: this
+    // Effects: loads listOfCreditCards from file
+    private void loadCreditCards() {
+        try {
+            listOfCreditCards = jsonReaderCards.readListOfCreditCards();
+            System.out.println("Loaded the list of credit cards from " + JSON_STORE_CARDS);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_CARDS);
+        }
+    }
+
+    // Modifies: this
+    // Effects: loads listOfRewardTypes from file
+    private void loadRewardTypes() {
+        try {
+            listOfRewardTypes = jsonReaderRewards.readListOfRewardTypes();
+            System.out.println("Loaded the list of reward types from " + JSON_STORE_REWARDS);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_REWARDS);
+        }
+    }
+
+    // Modifies: this
+    // Effects: loads monthlySpending from file
+    private void loadMonthlySpending() {
+        try {
+            monthlySpending = jsonReaderSpending.readMonthlySpending();
+            System.out.println("Loaded the monthly spending from " + JSON_STORE_SPENDING);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_SPENDING);
+        }
     }
 
 }

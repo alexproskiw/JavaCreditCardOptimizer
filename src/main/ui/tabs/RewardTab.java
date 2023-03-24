@@ -1,6 +1,5 @@
 package ui.tabs;
 
-import model.ListOfRewardTypes;
 import model.RewardType;
 import ui.CreditCardManagerGraphical;
 
@@ -41,12 +40,10 @@ public class RewardTab extends Tab {
     private JList listOfRewardNames;
     private DefaultListModel<String> listOfRewardNamesModel;
 
-    private ListOfRewardTypes listOfRewardTypes;
     private RewardType currentReward;
 
     public RewardTab(CreditCardManagerGraphical creditCardManagerGraphical) {
         super(creditCardManagerGraphical);
-        listOfRewardTypes = creditCardManagerGraphical.getListOfRewardTypes();
         initializeRewardDetailFields();
         loadMasterPanel();
         loadLeftPanel();
@@ -193,7 +190,7 @@ public class RewardTab extends Tab {
     private void loadRewardNamesToScrollableList() {
         listOfRewardNames = new JList();
         listOfRewardNamesModel = new DefaultListModel();
-        for (RewardType r : listOfRewardTypes.getListOfRewardTypes()) {
+        for (RewardType r : creditCardManagerGraphical.getListOfRewardTypes().getListOfRewardTypes()) {
             listOfRewardNamesModel.addElement(r.getRewardName());
         }
         listOfRewardNames.setModel(listOfRewardNamesModel);
@@ -214,7 +211,7 @@ public class RewardTab extends Tab {
 
     private void handleNewRewardSelected(javax.swing.event.ListSelectionEvent evt) {
         String s = (String) listOfRewardNames.getSelectedValue();
-        for (RewardType r : listOfRewardTypes.getListOfRewardTypes()) {
+        for (RewardType r : creditCardManagerGraphical.getListOfRewardTypes().getListOfRewardTypes()) {
             if (s == null) {
                 break;
             }
@@ -349,7 +346,7 @@ public class RewardTab extends Tab {
     }
 
     private void handleClickOnConfirmRemoveButton() {
-        listOfRewardTypes.removeRewardType(currentReward.getRewardName());
+        creditCardManagerGraphical.getListOfRewardTypes().removeRewardType(currentReward.getRewardName());
         refreshRewardList();
         loadButtonStatesInitial();
         resetRewardDetailFields();
@@ -365,7 +362,7 @@ public class RewardTab extends Tab {
         String rewardName = rewardNameField.getText();
         Double rewardValue = Double.valueOf(rewardValueField.getText());
         RewardType newReward = new RewardType(rewardName, rewardValue);
-        Boolean wasAddSuccess = listOfRewardTypes.addRewardType(newReward);
+        Boolean wasAddSuccess = creditCardManagerGraphical.getListOfRewardTypes().addRewardType(newReward);
         if (wasAddSuccess) {
             messageBanner.setText("Reward added");
         } else {
@@ -373,9 +370,9 @@ public class RewardTab extends Tab {
         }
     }
 
-    private void refreshRewardList() {
+    public void refreshRewardList() {
         listOfRewardNamesModel = new DefaultListModel();
-        for (RewardType r : listOfRewardTypes.getListOfRewardTypes()) {
+        for (RewardType r : creditCardManagerGraphical.getListOfRewardTypes().getListOfRewardTypes()) {
             listOfRewardNamesModel.addElement(r.getRewardName());
         }
         listOfRewardNames.setModel(listOfRewardNamesModel);

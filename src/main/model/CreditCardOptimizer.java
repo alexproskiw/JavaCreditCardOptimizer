@@ -17,6 +17,8 @@ public class CreditCardOptimizer {
     //          in the list of credit cards
     public void calculateMaxRewards(ListOfCreditCards listOfCreditCards, ListOfRewardTypes listOfRewardTypes,
                                     MonthlySpending monthlySpending) {
+        this.maxRewards = 0;
+        this.optimalCard = "N/A";
         for (CreditCard card : listOfCreditCards.getListOfCreditCards()) {
             String rewardName = card.getRewardName();
             RewardType reward = listOfRewardTypes.getRewardType(rewardName);
