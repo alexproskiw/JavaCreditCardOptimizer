@@ -72,38 +72,47 @@ public class MonthlySpending implements Writable {
 
     public void setGeneralSpending(double general) {
         this.generalSpending = general;
+        EventLog.getInstance().logEvent(new Event("Set general spending to: " + general));
     }
 
     public void setTravelSpending(double travel) {
         this.travelSpending = travel;
+        EventLog.getInstance().logEvent(new Event("Set travel spending to: " + travel));
     }
 
     public void setGrocerySpending(double grocery) {
         this.grocerySpending = grocery;
+        EventLog.getInstance().logEvent(new Event("Set grocery spending to: " + grocery));
     }
 
-    public void setRestaurantSpending(double grocery) {
-        this.restaurantSpending = grocery;
+    public void setRestaurantSpending(double restaurant) {
+        this.restaurantSpending = restaurant;
+        EventLog.getInstance().logEvent(new Event("Set restaurant spending to: " + restaurant));
     }
 
     public void setGasSpending(double gas) {
         this.gasSpending = gas;
+        EventLog.getInstance().logEvent(new Event("Set gas spending to: " + gas));
     }
 
     public void setDrugStoreSpending(double drugStore) {
         this.drugStoreSpending = drugStore;
+        EventLog.getInstance().logEvent(new Event("Set drug store spending to: " + drugStore));
     }
 
     public void setTransitSpending(double transit) {
         this.transitSpending = transit;
+        EventLog.getInstance().logEvent(new Event("Set transit spending to: " + transit));
     }
 
     public void setEntertainmentSpending(double entertainment) {
         this.entertainmentSpending = entertainment;
+        EventLog.getInstance().logEvent(new Event("Set entertainment spending to: " + entertainment));
     }
 
     public void setRecurringSpending(double recurring) {
         this.recurringSpending = recurring;
+        EventLog.getInstance().logEvent(new Event("Set recurring spending to: " + recurring));
     }
 
     // Effects: Create a json object for the monthly spending

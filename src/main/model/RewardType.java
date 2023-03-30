@@ -30,10 +30,12 @@ public class RewardType implements Writable {
 
     public void setRewardName(String name) {
         this.rewardName = name;
+        EventLog.getInstance().logEvent(new Event("Set reward name to: " + rewardName));
     }
 
     public void setRewardValue(double value) {
         this.value = value;
+        EventLog.getInstance().logEvent(new Event("Set reward value to: " + value + " cpp"));
     }
 
     // Effects: Create a json object for the reward type

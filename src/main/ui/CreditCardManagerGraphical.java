@@ -1,15 +1,14 @@
 package ui;
 
-import model.CreditCardOptimizer;
-import model.ListOfCreditCards;
-import model.ListOfRewardTypes;
-import model.MonthlySpending;
+import model.*;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.tabs.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -61,6 +60,7 @@ public class CreditCardManagerGraphical {
         loadSidebar();
         loadTabs();
         initializeWritersAndReaders();
+        addEventLogPrintingOnWindowClose();
     }
 
     // Modifies: this
@@ -200,6 +200,26 @@ public class CreditCardManagerGraphical {
             System.out.println("Loaded the monthly spending from " + JSON_STORE_SPENDING);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE_SPENDING);
+        }
+    }
+
+    // Modifies: this
+    // Effects: adds a listener to track when the window is closed. Calls the printLog method when the window is closed.
+    private void addEventLogPrintingOnWindowClose() {
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                printLog();
+                System.exit(0);
+            }
+        });
+    }
+
+    // Effects: when the user quits the application, print to console all the events that have been logged
+    //              since the application started
+    private void printLog() {
+        for (Event next : EventLog.getInstance()) {
+            System.out.println(next.toString());
         }
     }
 

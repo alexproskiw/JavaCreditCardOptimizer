@@ -92,6 +92,7 @@ public class ListOfCreditCards implements Writable {
             return false;
         } else {
             listOfCreditCards.add(card);
+            EventLog.getInstance().logEvent(new Event("Added new card: " + card.getCardName()));
             return true;
         }
     }
@@ -104,6 +105,7 @@ public class ListOfCreditCards implements Writable {
         for (CreditCard card : listOfCreditCards) {
             if (card.getCardName().equals(cardName)) {
                 listOfCreditCards.remove(card);
+                EventLog.getInstance().logEvent(new Event("Removed card: " + card.getCardName()));
                 return true;
             }
         }

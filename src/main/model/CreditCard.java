@@ -95,50 +95,62 @@ public class CreditCard implements Writable {
 
     public void setCardName(String cardName) {
         this.cardName = cardName;
+        EventLog.getInstance().logEvent(new Event("Set card name to: " + cardName));
     }
 
     public void setRewardName(String rewardName) {
         this.rewardName = rewardName;
+        EventLog.getInstance().logEvent(new Event("Set reward name to: " + rewardName));
     }
 
     public void setAnnualFee(double annualFee) {
         this.annualFee = annualFee;
+        EventLog.getInstance().logEvent(new Event("Set annual fee to: " + annualFee));
     }
 
     public void setGeneralRewards(double general) {
         this.generalRewards = general;
+        EventLog.getInstance().logEvent(new Event("Set general rewards to: " + general));
     }
 
     public void setTravelRewards(double travel) {
         this.travelRewards = travel;
+        EventLog.getInstance().logEvent(new Event("Set travel rewards to: " + travel));
     }
 
     public void setGroceryRewards(double grocery) {
         this.groceryRewards = grocery;
+        EventLog.getInstance().logEvent(new Event("Set grocery rewards to: " + grocery));
     }
 
     public void setRestaurantRewards(double restaurant) {
         this.restaurantRewards = restaurant;
+        EventLog.getInstance().logEvent(new Event("Set restaurant rewards to: " + restaurant));
     }
 
     public void setGasRewards(double gas) {
         this.gasRewards = gas;
+        EventLog.getInstance().logEvent(new Event("Set gas rewards to: " + gas));
     }
 
     public void setDrugStoreRewards(double drugStore) {
         this.drugStoreRewards = drugStore;
+        EventLog.getInstance().logEvent(new Event("Set drug store rewards to: " + drugStore));
     }
 
     public void setTransitRewards(double transit) {
         this.transitRewards = transit;
+        EventLog.getInstance().logEvent(new Event("Set transit rewards to: " + transit));
     }
 
     public void setEntertainmentRewards(double entertainment) {
         this.entertainmentRewards = entertainment;
+        EventLog.getInstance().logEvent(new Event("Set entertainment rewards to: " + entertainment));
     }
 
     public void setRecurringRewards(double recurring) {
         this.recurringRewards = recurring;
+        EventLog.getInstance().logEvent(new Event("Set recurring rewards to: " + recurring));
     }
 
     // Effects: Create a json object for the credit card

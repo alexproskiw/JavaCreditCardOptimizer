@@ -63,6 +63,7 @@ public class ListOfRewardTypes implements Writable {
             return false;
         } else {
             listOfRewardTypes.add(reward);
+            EventLog.getInstance().logEvent(new Event("Added new reward: " + reward.getRewardName()));
             return true;
         }
     }
@@ -75,6 +76,7 @@ public class ListOfRewardTypes implements Writable {
         for (RewardType reward: listOfRewardTypes) {
             if (reward.getRewardName().equals(rewardName)) {
                 listOfRewardTypes.remove(reward);
+                EventLog.getInstance().logEvent(new Event("Removed reward: " + reward.getRewardName()));
                 return true;
             }
         }

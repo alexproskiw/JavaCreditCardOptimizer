@@ -58,10 +58,41 @@ access and VIP status have not been accounted for.*
 - Bank of Canada. How Canadians Pay For Things. Accessed online Jan 25, 2023 at: https://www.bankofcanada.ca/2019/10/how-canadians-pay-for-things/
 - Credit Card Picture: <a href="https://www.freepik.com/free-photo/credit-card-payment-buy-sell-products-service_5469634.htm#query=credit%20cards&position=1&from_view=search&track=sph">Image by jcomp</a> on Freepik
 
-## <ins>Instructions for Grader:</ins>
+## <ins>Phase 3: Instructions for Grader:</ins>
 - You can generate the first required action related to adding credit cards to a list of credit cards by clicking on the "Credit Cards" tab, clicking "Add New Card", filling in the appropriate details, and clicking "Add"
 - You can generate the second required action related to removing credit cards from a list of credit cards by clicking on the "Credit Cards" tab, clicking on a credit card in the list, clicking "Remove Card", and confirming by clicking "Remove"
 - You can generate a third action related to editing a credit card within the list of credit cards by clicking on the "Credit Cards" tab, clicking on a credit card in the list, clicking "Edit Card", editing the appropriate fields, and clicking "Save Edits"
 - You can locate the visual component by clicking the "Optimizer" tab and clicking the "Optimize" button. A progress bar will appear, visually updating as the optimization proceeds.
 - You can save the state of the application by clicking the "Save/Load" tab and clicking the "Save Data" button
 - You can reload the state of the application by clicking the "Save/Load" tab and clicking the "Load Data" button
+
+## <ins>Phase 4: Task 2</ins>
+An example of the event log that gets printed to the terminal when I remove a card, add a card, and edit a card is as follows:
+- Wed Mar 29 17:41:03 PDT 2023
+- Removed card: CIBC Aventura Visa Infinite Privilege
+- Wed Mar 29 17:41:25 PDT 2023
+- Added new card: New Credit Card
+- Wed Mar 29 17:41:45 PDT 2023
+- Set card name to: AMEX Cobalt
+- Wed Mar 29 17:41:45 PDT 2023
+- Set reward name to: AMEX Rewards
+- Wed Mar 29 17:41:45 PDT 2023
+- Set annual fee to: 0.0
+- Wed Mar 29 17:41:45 PDT 2023
+- Set general rewards to: 9.0
+- Wed Mar 29 17:41:45 PDT 2023
+- Set travel rewards to: 8.0
+- Wed Mar 29 17:41:45 PDT 2023
+- Set grocery rewards to: 7.0
+- Wed Mar 29 17:41:45 PDT 2023
+- Set restaurant rewards to: 6.0
+- Wed Mar 29 17:41:45 PDT 2023
+- Set gas rewards to: 5.0
+- Wed Mar 29 17:41:45 PDT 2023
+- Set drug store rewards to: 4.0
+- Wed Mar 29 17:41:45 PDT 2023
+- Set transit rewards to: 3.0
+- Wed Mar 29 17:41:45 PDT 2023
+- Set entertainment rewards to: 2.0
+- Wed Mar 29 17:41:45 PDT 2023
+- Set recurring rewards to: 1.0

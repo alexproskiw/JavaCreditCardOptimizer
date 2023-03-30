@@ -29,6 +29,7 @@ public class CreditCardOptimizer {
                 optimalCard = card.getCardName();
             }
         }
+        EventLog.getInstance().logEvent(new Event("Successfully completed optimization"));
     }
 
     // Requires: card must not be null, rewardValue must be >= 0
