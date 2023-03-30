@@ -55,6 +55,7 @@ access and VIP status have not been accounted for.*
 ## <ins>References:</ins>
 - Incorporated elements of code from UBC CPSC210 - Json Serialization Demo. Accessed online March 7, 2023 at: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 - Incorporated elements of code from UBC CPSC210 - Smarthome Project. Accessed online March 21, 2023 at: https://github.students.cs.ubc.ca/CPSC210/LongFormProblemStarters
+- For the event logging, incorporated elements of code from UBC CPSC210 - Alarm System Project. Accessed online March 29, 2023 at: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
 - Bank of Canada. How Canadians Pay For Things. Accessed online Jan 25, 2023 at: https://www.bankofcanada.ca/2019/10/how-canadians-pay-for-things/
 - Credit Card Picture: <a href="https://www.freepik.com/free-photo/credit-card-payment-buy-sell-products-service_5469634.htm#query=credit%20cards&position=1&from_view=search&track=sph">Image by jcomp</a> on Freepik
 
@@ -96,3 +97,33 @@ An example of the event log that gets printed to the terminal when I remove a ca
 - Set entertainment rewards to: 2.0
 - Wed Mar 29 17:41:45 PDT 2023
 - Set recurring rewards to: 1.0
+- 
+## <ins>Phase 4: Task 3</ins>
+Please see the completed UML Class Diagram for my project here: [UML Design Diagram](UML_Design_Diagram.pdf)
+
+I am generally happy with the design presented in the UML Class Diagram for this project. I managed to maintain
+good separation between the different components of the model, with each class having a distinct responsibility.
+For example, the difference between credit cards, reward types, and monthly spending are clearly delineated
+between the different classes in the Model package.
+
+However, the diagram helped me identify several areas of improvement for future refactoring if I had more time. 
+Namely, some of the classes in the UI package have direct associations to classes within the model package.
+These include:
+- The CreditCardTab class having a field of type CreditCard, 
+- The RewardTab having a field of type RewardType, and 
+- The OptimizerTab having a field of type CreditCardOptimizer 
+
+To tidy up the overall relation between the Model and UI packages, I would move these relationships to be handled 
+by the CreditCardManagerGraphical class, which already has associations with the ListOfCreditCards, ListOfRewardType,
+and MonthlySpending classes. This would help reduce coupling between classes.
+
+Another improvement I would attempt to make is have the CreditCardManagerGraphical class simply have
+5 associations to the abstract class Tab, instead of single associations to the 5 different tabs
+(e.g., CreditCardTab, RewardTab, etc.) that extend Tab. This would help reduce coupling, and make future 
+revisions easier if I wanted to add a new type of tab that extended Tab.
+
+Another refactoring change I might consider is how I handle the Json writers and readers.
+Right now the project has 3 of each - one to read/write credit cards, one to read/write rewards,
+and one to read/write monthly spending. Perhaps these could be combined into a single reader and a single writer,
+as the functionality between them is not significantly different 
+(just taking one of my objects and reading/writing it to/from a Json file).
